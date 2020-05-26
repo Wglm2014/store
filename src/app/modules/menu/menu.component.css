@@ -1,0 +1,34 @@
+.cotainer {
+  max-width: 90%;
+}
+.menu {
+  display:flex;
+  justify-content: center;
+  list-style-type: none;
+  margin: 1vw;
+  background-color: steelblue;
+  height: 3em;
+}
+.sub-menu-selector{
+  padding-top: 1em;
+}
+.sub-menu {
+  display: none;
+  list-style-type: none;
+}
+.menu-item:hover + .sub-menu {
+  display: block;
+}
+.sub-menu:hover{
+  display: block;
+}
+.menu-item{
+  margin-left:1vw;
+  margin-right:1vw;
+  margin-top: 1hw;
+  width: 30vw;
+  text-decoration: none;
+}
+.menu-item:hover{
+  background-color: azure;
+}
