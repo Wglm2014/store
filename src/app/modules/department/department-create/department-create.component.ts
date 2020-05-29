@@ -10,7 +10,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./department-create.component.css']
 })
 export class DepartmentCreateComponent implements OnInit,OnDestroy {
-  department: Department;
+  department: Department = new Department();
   subRoute: any;
   constructor(private departmentService:DepartmentService,
               private router: Router,
@@ -41,5 +41,9 @@ export class DepartmentCreateComponent implements OnInit,OnDestroy {
       },
       (error:HttpErrorResponse)=>console.log(error.message)
     );
+  }
+
+  cancel(){
+    this.router.navigateByUrl('department');
   }
 }

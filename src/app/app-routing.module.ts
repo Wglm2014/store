@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DepartmentComponent } from './modules/department/department.component';
 import { MenuComponent } from './modules/menu/menu.component';
+import { DepartmentModule } from './modules/department/department.module';
 
 
 const routes: Routes = [
@@ -12,6 +13,8 @@ const routes: Routes = [
 @NgModule({
   imports: [
   RouterModule.forRoot(routes),
+  DepartmentModule
+
 ],
   exports: [RouterModule]
 })

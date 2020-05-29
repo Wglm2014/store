@@ -3,11 +3,13 @@ import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 import {SERVER_API_URL} from '../app.constants';
 import { Observable } from 'rxjs';
 import { Department } from '../models/department';
+
 @Injectable({
   providedIn: 'root'
 })
 export class DepartmentService {
   private resourceUrl = SERVER_API_URL + 'api/departments';
+
   constructor(private http: HttpClient) { }
 
 
