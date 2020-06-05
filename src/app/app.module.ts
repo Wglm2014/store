@@ -5,8 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import { MenuComponent } from './modules/menu/menu.component';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
@@ -17,9 +17,9 @@ import { MenuComponent } from './modules/menu/menu.component';
     FormsModule,
     BrowserModule,
     AppRoutingModule,
-    AngularFontAwesomeModule,
-    BrowserAnimationsModule
-  ],
+    BrowserAnimationsModule,
+    MaterialModule
+    ],
   exports:[HttpClientModule],
   providers: [],
   bootstrap: [AppComponent]

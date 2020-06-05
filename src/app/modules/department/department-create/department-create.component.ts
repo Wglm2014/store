@@ -31,7 +31,7 @@ export class DepartmentCreateComponent implements OnInit,OnDestroy {
 
 
   ngOnDestroy(): void {
-    this.subRoute.unsubscribe();
+    //this.subRoute.unsubscribe();
   }
 
   save(){

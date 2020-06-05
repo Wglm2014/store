@@ -1,20 +1,8 @@
-<header class="container">
-  <ul class="menu">
-      <li class="sub-menu-selector">
-        <a class="menu-item" routerLink="" routerLinkActive="active"><img class="brand-icon" src="" alt="home"></a>
-      </li>
-      <li class="sub-menu-selector">
-          <a class="menu-item" href="#">Ventas</a>
-      </li>
-      <li class="sub-menu-selector">
-          <a class="menu-item"s href="#">Inventario</a>
-      </li>
-      <li class="sub-menu-selector">
-          <a class="menu-item" href="#">Configuracion</a>
-           <ul class="sub-menu">
-              <li><a class="menu-item" routerLink="department" routerLinkActive="active">Departamentos y Municipios</a></li>
-          </ul>
-      </li>
-
-  </ul>
-</header>
+<mat-toolbar class="bg-primary">
+  <a mat-button routerLink="" routerLinkActive>Home</a>
+  <a mat-button [matMenuTriggerFor]="maintinance">Mantenimiento</a>
+  <mat-menu class="bg-primary" #maintinance="matMenu">
+    <a mat-button routerLink="department" routerLinkActive>Departamentos Y Municipios</a>
+    <a mat-button>Usuarios</a>
+  </mat-menu>
+</mat-toolbar>
