@@ -1,7 +1,7 @@
 <mat-toolbar class="bg-primary">
   <a mat-button routerLink="" routerLinkActive>Home</a>
   <a mat-button [matMenuTriggerFor]="maintinance">Mantenimiento</a>
-  <mat-menu class="bg-primary" #maintinance="matMenu">
+  <mat-menu #maintinance="matMenu" class="bg-primary">
     <a mat-button routerLink="department" routerLinkActive>Departamentos Y Municipios</a>
     <a mat-button>Usuarios</a>
   </mat-menu>

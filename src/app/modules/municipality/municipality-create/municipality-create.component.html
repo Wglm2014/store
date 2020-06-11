@@ -1,0 +1,25 @@
+<div class="card">
+
+  <h3 class="card card-title text-center bg-light">Agregue Municipios</h3>
+  <div class="card-body">
+    <form action="">
+      <div class="row">
+        <div class="col-4 col-xs-4">
+          <input class="form-control" type="text" placeholder="Nombre Abreviado de municipio" name="title"
+            [(ngModel)]="municipality.title">
+        </div>
+        <div class="col-6 col-xs-6">
+          <input class="form-control col-xs-6" placeholder="Nombre de Municipio" type="text" name="long_title"
+            [(ngModel)]="municipality.long_title">
+        </div>
+        <div class="col-xs-1">
+          <button class="btn btn-primary btn-sm"><i class="fas fa-save"></i></button>
+        </div>
+        <div class="col-xs-1">
+          <button class="btn btn-secondary btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>

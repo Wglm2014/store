@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MenuComponent } from './modules/menu/menu.component';
-import { MaterialModule } from './material/material.module';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -19,8 +19,8 @@ import { MaterialModule } from './material/material.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule
-    ],
-  exports:[HttpClientModule],
+  ],
+  exports: [HttpClientModule, MaterialModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent]
 })

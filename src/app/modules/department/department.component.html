@@ -1,46 +1,68 @@
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-10">
-      <h1>Departments</h1>
-    </div>
-    <div class="col-2 text-right">
-      <button class="btn btn-primary btn-sm" (click)="goToCreate()"><i class="fa fa-plus-circle"
-          aria-hidden="true"></i></button>
-    </div>
+<div class="container">
+  <div class="row text-center">
+    <h1 class="col-12">Departamentos
+      <span>
+        <button class="btn btn-primary btn-sm" (click)="toggle()">
+          <i class="fa fa-plus-square" aria-hidden="true"></i>
+        </button>
+      </span>
+    </h1>
   </div>
-  <div (onLazyLoad)="loadDepartments($event)">
-    <div class="row">
-      <div class="col-2 text-left">No</div>
-      <div class="col-8 text-center">Nombre</div>
+  <div class="row">
+    <div class="col-12">
+      <department-create [hidden]="hideParent" (hideCreate)="toggle()"></department-create>
     </div>
-    <div>
-      <div class="row" *ngFor="let field of data">
-        <div class="col-lg-2 col-sm-2 col-xs-2">{{field.id}}</div>
-        <div class="col-lg-8 col-sm-6 col-xs-6">{{field.title}}</div>
-        <div class="col-lg-2 col-sm-4 col-xs-4">
-          <button class="btn btn-success btn-sm">
-            <i class="fas fa-edit"></i>
+
+    <div class="col-12" [hidden]="hideEdit">
+
+      <form class="form-inline" name="editForm" (ngSubmit)="saveUpdate(params)" #editForm="ngForm">
+        <div class="form-group col-8 col-xs-8">
+          <label for="name">Edite el Nombre de El Departamento</label>
+          <input class="form-control" type="text" name="title" [(ngModel)]="params.title" #title="ngModel" required />
+        </div>
+        <div class="col-4 col-xs-4">
+          <button class="btn btn-primary btn-sm" type="submit" label="Save">
+            <i class="fa fa-floppy-o"></i>
           </button>
-          <button class="btn btn-danger btn-sm">
-            <i class="fa fa-eraser" aria-hidden="true"></i>
+          <button class="btn btn-secondary btn-sm" type="button" label="Cancel" (click)="toggleEdit()">
+            <i class="fa fa-arrow-left"></i>
           </button>
         </div>
-      </div>
+      </form>
     </div>
+
+
   </div>
+
+
+  <table displayMode="flat" class="table table-striped">
+    <tr matSort class="row bg-light">
+      <th mat-sort-header="id" class="col-1">No.</th>
+      <th mat-sort-header="title" class="col-5">Nombre de Departamento</th>
+      <th class="col-2">Editar</th>
+      <th class="col-2">Borrar</th>
+      <th class="col-2">Municipio</th>
+    </tr>
+    <tr *ngFor="let item of data" class="row">
+      <td class="col-1">{{item.id}}</td>
+      <td class="col-5 " #{{item.id}} [hidden]=false>
+        {{item.title}}
+      </td>
+      <td class="col-5 subOnOff" [hidden]=true>
+        <label for="title">Nombre de Departamento</label>
+      </td>
+      <td class="col-2">
+        <a mat-button (click)="onUpdate(item)">
+          <i class="fa fa-edit" aria-hidden="true"></i></a>
+      </td>
+      <td class="col-2">
+        <a mat-button (click)="onDelete(item.id)">
+          <i class="fa fa-trash" aria-hidden="true"></i></a>
+      </td>
+      <td class="col-2">
+        <a mat-button (click)="goToMunicipalities(item)"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+      </td>
+    </tr>
+  </table>
+
 </div>
-
-
-<table mat-table [dataSource]="data">
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef> No. </th>
-    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-  </ng-container>
-  <ng-container matColumnDef="title">
-    <th mat-header-cell *matHeaderCellDef> title </th>
-    <td mat-cell *matCellDef="let element"> {{element.title}} </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="Cols"></tr>
-  <tr mat-row *matRowDef="let row; columns: Cols;"></tr>
-</table>
