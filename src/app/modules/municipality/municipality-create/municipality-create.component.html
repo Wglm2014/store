@@ -1,25 +1,33 @@
 <div class="card">
-
   <h3 class="card card-title text-center bg-light">Agregue Municipios</h3>
   <div class="card-body">
-    <form action="">
-      <div class="row">
-        <div class="col-4 col-xs-4">
-          <input class="form-control" type="text" placeholder="Nombre Abreviado de municipio" name="title"
-            [(ngModel)]="municipality.title">
-        </div>
-        <div class="col-6 col-xs-6">
-          <input class="form-control col-xs-6" placeholder="Nombre de Municipio" type="text" name="long_title"
-            [(ngModel)]="municipality.long_title">
-        </div>
-        <div class="col-xs-1">
-          <button class="btn btn-primary btn-sm"><i class="fas fa-save"></i></button>
-        </div>
-        <div class="col-xs-1">
-          <button class="btn btn-secondary btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
-        </div>
-      </div>
-    </form>
-  </div>
+    <form action="" class="form-row" name="editForm" (ngSubmit)="save()" #editForm="ngForm">
+      <mat-form-field class="col-4 mr-0 ml-0">
+        <input matInput type="text" placeholder="Nombre Abreviado de municipio" name="title"
+          [(ngModel)]="municipality.title" #title="ngModel" required>
+      </mat-form-field>
+      <p *ngIf="title.errors && (title.dirty||title.touched)" class="text-danger">Por favor ingrese un valor
+        permitido</p>
 
+      <mat-form-field class="col-6 mr-0 ml-0">
+        <input matInput placeholder="Nombre de Municipio" type="text" name="longTitle"
+          [(ngModel)]="municipality.longTitle" #longTitle="ngModel" required>
+      </mat-form-field>
+      <p *ngIf="longTitle.errors && (longTitle.dirty||longTitle.touched)" class="text-danger">Por favor ingrese un
+        valor
+        permitido</p>
+      <div class="col-1  mr-0 ml-0">
+        <button mat-icon class="bg-primary" type="submit">
+          <mat-icon>save</mat-icon>
+        </button>
+      </div>
+      <div class="col-1 mr-0 ml-0">
+        <button mat-icon class="bg-secondary" (click)="toggle()">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </div>
+
+    </form>
+
+  </div>
 </div>

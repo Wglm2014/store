@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, Output, EventEmitter, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Department } from 'src/app/models/department';
 import { DepartmentService } from 'src/app/services/department.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,7 +16,6 @@ export class DepartmentCreateComponent implements OnInit {
 
   @Output() hideCreate = new EventEmitter<boolean>();
   toggle() {
-
     this.hideCreate.emit(true);
   }
 

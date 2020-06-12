@@ -1,15 +1,27 @@
 <div class="container">
-  <div class="row text-center">
+  <div class="row text-center mt-5">
     <h1 class="col-12">
-      Municipios del Departamento de {{department.title}}
-      <button class="btn btn-primary btn-sm">
-        <i class="fa fa-plus-square" aria-hidden="true"></i>
-      </button>
+      <span>
+        <button mat-icon-button class="bg-primary" (click)="toggle()">
+          <mat-icon>plus_one</mat-icon>
+        </button>
+        Municipios del Departamento de {{department.title}}
+      </span>
     </h1>
+    <div class="col-12">
+      <button class="btn btn-link" (click)="backDepartment()">
+        <h3>
+          <mat-icon>navigate_before</mat-icon>Volver a Departamentos
+        </h3>
+      </button>
+    </div>
+
   </div>
   <div class="row">
     <div class="col-12">
-      <municipality-create></municipality-create>
+      <municipality-create [hidden]="hideCreate" [dataDepartment]="department" (hideCreate)="toggle()">
+        {{department.title}}
+      </municipality-create>
     </div>
   </div>
 
@@ -21,5 +33,28 @@
       <th class="col 2">Editar</th>
       <th class="col-2">Borrar</th>
     </tr>
+    <!-- detail -->
+    <tr *ngFor="let item of municipalities" class="row">
+      <td class="col-1">{{item.id}}</td>
+      <td class="col-3 " #{{item.id}} [hidden]=false>
+        {{item.title}}
+      </td>
+      <td class="col-6">
+        {{item.longTitles}}
+      </td>
+      <td class="col-1">
+        <a mat-button (click)="onUpdate(item)">
+          <i class="fa fa-edit" aria-hidden="true"></i></a>
+      </td>
+      <td class="col-1">
+        <a mat-button (click)="onDelete(item.id)">
+          <i class="fa fa-trash" aria-hidden="true"></i></a>
+      </td>
+
+    </tr>
   </table>
+
+  <div class="row">
+    <h1 class="col-12">{{noMunicipalities}}</h1>
+  </div>
 </div>
