@@ -12,18 +12,25 @@ import { Department } from 'src/app/models/department';
 })
 export class MunicipalityCreateComponent implements OnInit, OnChanges {
   municipality: Municipality = new Municipality();
+  @Input("dataMunicipality") dataMunicipality: Municipality;
   @Input("dataDepartment") data: Department;
+  @Input("formTitle") formTitle: string;
+
 
   @ViewChild("editForm") form: any;
 
   @Output() hideCreate = new EventEmitter<boolean>();
+
   toggle() {
     this.hideCreate.emit(true);
   }
 
+  @Output() newMunicipality = new EventEmitter<Municipality>();
+
+
   constructor(private municipalityService: MunicipalityService,
     private router: Router) {
-    console.log("constructor child");
+
   }
 
   ngOnInit(): void {
@@ -32,18 +39,33 @@ export class MunicipalityCreateComponent implements OnInit, OnChanges {
 
   }
   ngOnChanges() {
-    console.log(this.data);
+    this.municipality = new Municipality();
+    if (this.dataMunicipality) {
+      this.municipality = this.dataMunicipality;
+    }
+    console.log(this.dataMunicipality);
   }
 
   save() {
-    this.municipality.departmentId = this.data.id;
-    console.log(this.municipality)
-    this.municipalityService.create(this.municipality).subscribe(
-      (response: HttpResponse<Municipality>) => {
-        this.router.navigate(["municipality/", this.data.id, this.data.title])
-      },
-      (error: HttpErrorResponse) => { console.log(error.message) }
-    );
+
+    if (this.formTitle === "Edite") {
+      this.dataMunicipality.departmentId = this.data.id;
+      this.municipalityService.update(this.dataMunicipality).subscribe(
+        (response: HttpResponse<Municipality>) => {
+          this.dataMunicipality = response.body;
+          this.newMunicipality.emit(this.dataMunicipality)
+        }, (error: HttpErrorResponse) => { console.log(error.message) }
+      )
+    } else {
+      this.municipality.departmentId = this.data.id;
+      this.municipalityService.create(this.municipality).subscribe(
+        (response: HttpResponse<Municipality>) => {
+          this.municipality = response.body;
+          this.newMunicipality.emit(this.municipality);
+        },
+        (error: HttpErrorResponse) => { console.log(error.message) }
+      );
+    }
     if (this.form.valid) {
       this.form.reset();
     }

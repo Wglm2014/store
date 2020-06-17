@@ -62,14 +62,15 @@ export class DepartmentComponent implements OnInit {
   }
 
   onDelete(id: number) {
-    this.departmentService.delete(id).subscribe((res: any) => { console.log(res); return res }
+    this.departmentService.delete(id).subscribe(
+      (res: any) => { console.log(res); return res }
       , (error: HttpErrorResponse) => console.log(error.message)
     );
   }
 
   goToMunicipalities(department: Department) {
     console.log(department);
-    this.router.navigate(["municipality/", department.id, department.title])
+    this.router.navigate(["municipality/"], { queryParams: { id: department.id, title: department.title }, skipLocationChange: true });
   }
   //toggle the form create component
   toggle() {

@@ -1,11 +1,9 @@
 <div class="container">
-  <div class="row text-center">
-    <h1 class="col-12">Departamentos
-      <span>
-        <button class="btn btn-primary btn-sm" (click)="toggle()">
-          <i class="fa fa-plus-square" aria-hidden="true"></i>
-        </button>
-      </span>
+  <div class="row text-center mt-5 mb-5">
+    <h1 class="col-12">
+      <button mat-icon-button class="bg-primary" (click)="toggle()">
+        <mat-icon>add</mat-icon>
+      </button> Departamentos
     </h1>
   </div>
   <div class="row">
@@ -21,11 +19,11 @@
           <input class="form-control" type="text" name="title" [(ngModel)]="params.title" #title="ngModel" required />
         </div>
         <div class="col-4 col-xs-4">
-          <button class="btn btn-primary btn-sm" type="submit" label="Save">
-            <i class="fa fa-floppy-o"></i>
+          <button mat-icon-button class="bg-primary" type="submit" label="Save">
+            <mat-icon>save</mat-icon>
           </button>
-          <button class="btn btn-secondary btn-sm" type="button" label="Cancel" (click)="toggleEdit()">
-            <i class="fa fa-arrow-left"></i>
+          <button mat-icon-button class="bg-secondary" type="button" label="Cancel" (click)="toggleEdit()">
+            <mat-icon>cancel</mat-icon>
           </button>
         </div>
       </form>
@@ -49,15 +47,16 @@
         {{item.title}}
       </td>
       <td class="col-2">
-        <a mat-button (click)="onUpdate(item)">
+        <a mat-icon-button (click)="onUpdate(item)">
           <i class="fa fa-edit" aria-hidden="true"></i></a>
       </td>
       <td class="col-2">
-        <a mat-button (click)="onDelete(item.id)">
+        <a mat-icon-button (click)="onDelete(item.id)">
           <i class="fa fa-trash" aria-hidden="true"></i></a>
       </td>
       <td class="col-2">
-        <a mat-button (click)="goToMunicipalities(item)"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i></a>
+        <a mat-icon-button (click)="goToMunicipalities(item)"><i class="fa fa-arrow-circle-right"
+            aria-hidden="true"></i></a>
       </td>
     </tr>
   </table>

@@ -3,7 +3,7 @@
     <h1 class="col-12">
       <span>
         <button mat-icon-button class="bg-primary" (click)="toggle()">
-          <mat-icon>plus_one</mat-icon>
+          <mat-icon>add</mat-icon>
         </button>
         Municipios del Departamento de {{department.title}}
       </span>
@@ -19,8 +19,8 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <municipality-create [hidden]="hideCreate" [dataDepartment]="department" (hideCreate)="toggle()">
-        {{department.title}}
+      <municipality-create [hidden]="hideCreate" [dataMunicipality]="municipality" [formTitle]="formTitle"
+        (newMunicipality)="newMunicipality($event)" [dataDepartment]="department" (hideCreate)="toggle()">
       </municipality-create>
     </div>
   </div>
@@ -29,25 +29,21 @@
     <tr class="row bg-light">
       <th class="col-1">No.</th>
       <th class="col-3">Nombre Corto</th>
-      <th class="col-4">Nombre Largo</th>
-      <th class="col 2">Editar</th>
-      <th class="col-2">Borrar</th>
+      <th class="col-6">Nombre Largo</th>
+      <th class="col 1">Editar</th>
+      <th class="col-1">Borrar</th>
     </tr>
     <!-- detail -->
     <tr *ngFor="let item of municipalities" class="row">
       <td class="col-1">{{item.id}}</td>
-      <td class="col-3 " #{{item.id}} [hidden]=false>
-        {{item.title}}
-      </td>
-      <td class="col-6">
-        {{item.longTitles}}
-      </td>
+      <td class="col-3 ">{{item.title}}</td>
+      <td class="col-6">{{item.longTitle}}</td>
       <td class="col-1">
-        <a mat-button (click)="onUpdate(item)">
+        <a mat-icon-button (click)="onUpdate(item)">
           <i class="fa fa-edit" aria-hidden="true"></i></a>
       </td>
       <td class="col-1">
-        <a mat-button (click)="onDelete(item.id)">
+        <a mat-icon-button (click)="onDelete(item.id)">
           <i class="fa fa-trash" aria-hidden="true"></i></a>
       </td>
 

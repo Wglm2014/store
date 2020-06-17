@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MenuComponent } from './modules/menu/menu.component';
 import { MaterialModule } from './material.module';
+import { CompanyService } from './services/company.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { MaterialModule } from './material.module';
     MaterialModule
   ],
   exports: [HttpClientModule, MaterialModule, FormsModule],
-  providers: [],
+  providers: [CompanyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

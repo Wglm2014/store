@@ -4,11 +4,11 @@
     <input class="form-control" type="text" name="title" [(ngModel)]="department.title" #title="ngModel" required />
   </div>
   <div class="col-4 col-xs-4">
-    <button class="btn btn-primary btn-sm" type="submit" label="Save">
-      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+    <button mat-icon class="bg-primary" type="submit" label="Save">
+      <mat-icon>add</mat-icon>
     </button>
-    <button class="btn btn-secondary btn-sm" type="button" label="Cancel" (click)="toggle()">
-      <i class="fas fa-backward"></i>
+    <button mat-icon class="bg-secondary" type="button" label="Cancel" (click)="toggle()">
+      <mat-icon>cancel</mat-icon>
     </button>
   </div>
 </form>

@@ -1,5 +1,5 @@
 <div class="card">
-  <h3 class="card card-title text-center bg-light">Agregue Municipios</h3>
+  <h3 class="card card-title text-center bg-light">{{formTitle}} El Municipio</h3>
   <div class="card-body">
     <form action="" class="form-row" name="editForm" (ngSubmit)="save()" #editForm="ngForm">
       <mat-form-field class="col-4 mr-0 ml-0">
@@ -13,9 +13,8 @@
         <input matInput placeholder="Nombre de Municipio" type="text" name="longTitle"
           [(ngModel)]="municipality.longTitle" #longTitle="ngModel" required>
       </mat-form-field>
-      <p *ngIf="longTitle.errors && (longTitle.dirty||longTitle.touched)" class="text-danger">Por favor ingrese un
-        valor
-        permitido</p>
+      <p *ngIf="longTitle.errors && (longTitle.dirty||longTitle.touched)" class="text-danger">
+        Por favor ingrese un valor permitido</p>
       <div class="col-1  mr-0 ml-0">
         <button mat-icon class="bg-primary" type="submit">
           <mat-icon>save</mat-icon>

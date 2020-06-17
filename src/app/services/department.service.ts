@@ -31,7 +31,6 @@ export class DepartmentService {
 
 
   create(department: Department): Observable<HttpResponse<Department>> {
-    console.log(department);
     return this.http.post<Department>(this.resourceUrl, department, { observe: 'response' });
   }
   update(department: Department): Observable<HttpResponse<Department>> {

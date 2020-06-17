@@ -31,7 +31,7 @@ export class MunicipalityService {
     return this.http.put<Municipality>(this.resourceUrl, municipality, { observe: 'response' });
   }
 
-  declare(id: number): Observable<HttpResponse<Municipality>> {
+  delete(id: number): Observable<HttpResponse<Municipality>> {
     return this.http.delete<Municipality>(this.resourceUrl + '/' + id, { observe: 'response' });
   }
 }
