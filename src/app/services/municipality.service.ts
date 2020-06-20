@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
 import { SERVER_API_URL } from '../app.constants';
-import { Observable } from 'rxjs';
+import { Observable, observable } from 'rxjs';
 import { Municipality } from '../models/municipality';
 
 @Injectable({
@@ -22,6 +22,16 @@ export class MunicipalityService {
     return this.http.get<Municipality[]>(this.resourceUrl + '/' + departmentId, { observe: 'response' });
   }
 
+  findAll(options?: any): Observable<HttpResponse<Municipality[]>> {
+    let params: HttpParams;
+    if (options) {
+      params = new HttpParams()
+        .set("page", options.page)
+        .set("size", options.size)
+        .set("sort", options.sort)
+    }
+    return this.http.get<Municipality[]>(this.resourceUrl, { params, observe: "response" });
+  }
   create(municipality: Municipality): Observable<HttpResponse<Municipality>> {
 
     return this.http.post<Municipality>(this.resourceUrl, municipality, { observe: 'response' });

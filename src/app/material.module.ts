@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatExpansionModule } from '@angular/material/expansion';
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [],
@@ -23,6 +23,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatPaginatorModule,
     MatSortModule,
     MatExpansionModule,
+    MatAutocompleteModule,
+
   ],
   exports: [
     MatMenuModule,
@@ -34,7 +36,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatPaginatorModule,
     MatSortModule,
     MatExpansionModule,
-
+    MatAutocompleteModule,
   ]
 })
 export class MaterialModule { }

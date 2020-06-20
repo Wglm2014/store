@@ -1,0 +1,38 @@
+<header class="row text-center mt-5">
+  <h1 class="col-12">Compañia</h1>
+</header>
+<main class="container">
+  <form name="createForm" (ngSubmit)="save()" #createForm="ngForm">
+    <mat-form-field>
+      <input matInput placeholder="Nombre de la Compañia" name="title" [(ngModel)]="company.title" #title="ngModel">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Nombre Comercial" name="commercialName" [(ngModel)]="company.commercialName"
+        #commercialName="ngModel">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Direccion" name="address" [(ngModel)]="company.address" #address="ngModel">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" placeholder="Departamento" name="depa" [formControl]="department"
+        [matAutocomplete]="auto" #inputDepa (change)="filterMunicipality($event.target.value)">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let item of departments" [value]="item.title"
+          ng-select="filterMunicipality($event.target.value)">
+          {{item.title}}</mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" placeholder="Municipio" name="muni" [formControl]="municipality"
+        [matAutocomplete]="autoMuni">
+      <mat-autocomplete #autoMuni="matAutocomplete">
+        <mat-option *ngFor="let option of reduceMunicipalities" [value]="option.longTitle">{{option.longTitle}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+</main>

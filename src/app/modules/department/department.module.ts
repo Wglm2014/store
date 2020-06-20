@@ -6,11 +6,10 @@ import { DepartmentService } from 'src/app/services/department.service';
 import { DepartmentComponent } from './department.component';
 import { MaterialModule } from 'src/app/material.module';
 import { DepartmentCreateComponent } from './department-create/department-create.component';
-import { MunicipalityComponent } from '../municipality/municipality.component';
-import { MunicipalityCreateComponent } from '../municipality/municipality-create/municipality-create.component';
+
 
 @NgModule({
-  declarations: [DepartmentComponent, DepartmentCreateComponent, MunicipalityComponent, MunicipalityCreateComponent],
+  declarations: [DepartmentComponent, DepartmentCreateComponent],
   imports: [
     CommonModule,
     DeparmentRoutingModule,

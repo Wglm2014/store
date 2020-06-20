@@ -1,11 +1,11 @@
 export class Branch {
   constructor(
-    id?: number,
-    title?: string,
-    address?: string,
-    telephone?: string,
-    otherPhone?: string,
-    titleAbbeviation?: string,
-    companyId?: number
+    public id?: number,
+    public title?: string,
+    public address?: string,
+    public telephone?: string,
+    public otherPhone?: string,
+    public titleAbbeviation?: string,
+    public companyId?: number
   ) { }
 }
