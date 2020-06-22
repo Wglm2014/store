@@ -6,8 +6,9 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MenuComponent } from './modules/menu/menu.component';
-import { MaterialModule } from './material.module';
+import { PrimengModule } from './primeng.module';
 import { CompanyService } from './services/company.service';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -19,9 +20,10 @@ import { CompanyService } from './services/company.service';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    PrimengModule,
     MaterialModule
   ],
-  exports: [HttpClientModule, MaterialModule, FormsModule],
+  exports: [HttpClientModule, PrimengModule, FormsModule, MaterialModule],
   providers: [CompanyService],
   bootstrap: [AppComponent]
 })

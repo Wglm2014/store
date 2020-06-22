@@ -3,6 +3,8 @@ import { DepartmentService } from 'src/app/services/department.service';
 import { Department } from 'src/app/models/department';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-department',
@@ -11,19 +13,32 @@ import { Router } from '@angular/router';
 })
 export class DepartmentComponent implements OnInit {
   data: Department[];
-  cols: String[] = ['id', 'title', 'action'];
-  totalRecords: any;
   params: Department = new Department();
+  cloneDepartment: { [s: string]: Department; } = {};
 
   //hide or show form create component
   hideParent: boolean = false;
-  hideEdit: boolean = true;
+  editing: boolean = false;
+
+  //Paginator and sort table
+  cols: any[];
+  first = 0;
+  rows = 10;
+  totalRecords: any;
+
+
 
   constructor(private departmentService: DepartmentService,
     private router: Router) {
   }
 
   ngOnInit() {
+
+    this.cols = [
+      { field: 'id', header: 'No.' },
+      { field: 'title', header: 'Nombre de Departamento' },
+    ]
+
     this.toggle();
     this.loadDepartments({ rows: 5, totalRecords: 1, first: 5 })
   }
@@ -45,25 +60,14 @@ export class DepartmentComponent implements OnInit {
     );
   }
 
-  onUpdate(department: Department) {
-    this.params = department;
-    this.toggleEdit();
-  }
-
-  saveUpdate(department: Department) {
-
-    this.departmentService.update(this.params).subscribe(
-      (res: any) => {
-        console.log(res);
-        return res
-      }, (error: HttpErrorResponse) => console.log(error.message)
-    );
-    this.toggleEdit();
-  }
 
   onDelete(id: number) {
     this.departmentService.delete(id).subscribe(
-      (res: any) => { console.log(res); return res }
+      (res: any) => {
+        console.log(res);
+        console.log(this.data.filter(row => { return row.id != res.body.id }));
+        return res
+      }
       , (error: HttpErrorResponse) => console.log(error.message)
     );
   }
@@ -76,7 +80,22 @@ export class DepartmentComponent implements OnInit {
   toggle() {
     this.hideParent = !this.hideParent;
   }
-  toggleEdit() {
-    this.hideEdit = !this.hideEdit;
+
+  onRowEditInit(department: Department) {
+    this.cloneDepartment[department.id] = { ...department };
   }
+  onRowEditSave(department: Department) {
+    this.departmentService.update(department).subscribe(
+      (res: any) => {
+        console.log(res);
+        delete this.cloneDepartment[department.id];
+      }, (error: HttpErrorResponse) => console.log(error.message)
+    );
+  }
+  onRowEditCancel(department: Department, index: number) {
+    this.data[index] = this.cloneDepartment[department.id];
+  }
+
+
+
 }
