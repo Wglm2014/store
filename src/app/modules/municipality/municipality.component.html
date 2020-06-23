@@ -1,56 +1,61 @@
 <div class="container">
-  <div class="row text-center mt-5">
-    <h1 class="col-12">
-      <span>
-        <button mat-icon-button class="bg-primary" (click)="toggle()">
-          <mat-icon>add</mat-icon>
-        </button>
-        Municipios del Departamento de {{department.title}}
-      </span>
+  <div class="p-grid text-center">
+    <h1 class="p-col">
+      <button pButton class="ui-button-rounded ui-button-info" icon="pi pi-plus-circle" (click)="toggle()">
+      </button>
+      Municipios del Departamento de {{department.title}}
     </h1>
-    <div class="col-12">
-      <button class="btn btn-link" (click)="backDepartment()">
+  </div>
+  <div class="p-grid text-center">
+    <div class="p-col">
+      <button class="btn-link" (click)="backDepartment()">
         <h3>
-          <mat-icon>navigate_before</mat-icon>Volver a Departamentos
+          <i class="pi pi-arrow-circle-left "></i>
+          Volver a Departamentos
         </h3>
       </button>
     </div>
-
   </div>
-  <div class="row">
-    <div class="col-12">
+
+  <div class="p-grid">
+    <div class="p-col">
       <municipality-create [hidden]="hideCreate" [dataMunicipality]="municipality" [formTitle]="formTitle"
         (newMunicipality)="newMunicipality($event)" [dataDepartment]="department" (hideCreate)="toggle()">
       </municipality-create>
     </div>
   </div>
 
-  <table class="table table-striped" displayMode="flat">
-    <tr class="row bg-light">
-      <th class="col-1">No.</th>
-      <th class="col-3">Nombre Corto</th>
-      <th class="col-6">Nombre Largo</th>
-      <th class="col 1">Editar</th>
-      <th class="col-1">Borrar</th>
-    </tr>
-    <!-- detail -->
-    <tr *ngFor="let item of municipalities" class="row">
-      <td class="col-1">{{item.id}}</td>
-      <td class="col-3 ">{{item.title}}</td>
-      <td class="col-6">{{item.longTitle}}</td>
-      <td class="col-1">
-        <a mat-icon-button (click)="onUpdate(item)">
-          <i class="fa fa-edit" aria-hidden="true"></i></a>
-      </td>
-      <td class="col-1">
-        <a mat-icon-button (click)="onDelete(item.id)">
-          <i class="fa fa-trash" aria-hidden="true"></i></a>
-      </td>
 
-    </tr>
-  </table>
+  <div class="p-grid">
+    <div class="p-col">
+      <table class="table table-striped" displayMode="flat">
+        <tr class="row bg-light">
+          <th class="col-1">No.</th>
+          <th class="col-3">Nombre Corto</th>
+          <th class="col-6">Nombre Largo</th>
+          <th class="col 1">Editar</th>
+          <th class="col-1">Borrar</th>
+        </tr>
+        <!-- detail -->
+        <tr *ngFor="let item of municipalities" class="row">
+          <td class="col-1">{{item.id}}</td>
+          <td class="col-3 ">{{item.title}}</td>
+          <td class="col-6">{{item.longTitle}}</td>
+          <td class="col-1">
+            <a mat-icon-button (click)="onUpdate(item)">
+              <i class="fa fa-edit" aria-hidden="true"></i></a>
+          </td>
+          <td class="col-1">
+            <a mat-icon-button (click)="onDelete(item.id)">
+              <i class="fa fa-trash" aria-hidden="true"></i></a>
+          </td>
 
-  <div class="row">
-    <h1 class="col-12">{{noMunicipalities}}</h1>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="p-grid text-center">
+    <h1 class="p-col">{{noMunicipalities}}</h1>
   </div>
 </div>

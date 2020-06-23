@@ -1,16 +1,13 @@
-<form class="form-inline" name="editForm" (ngSubmit)="save()" #editForm="ngForm">
-  <div class="form-group col-8 col-xs-8">
-    <label for="name">Name</label>
-    <input class="form-control" type="text" name="title" [(ngModel)]="department.title" #title="ngModel" required />
-  </div>
-  <div class="col-4 col-xs-4">
-    <button mat-icon class="bg-primary" type="submit" label="Save">
-      <mat-icon>add</mat-icon>
+<form class="p-formgroup-inline" name="editForm" (ngSubmit)="save()" #editForm="ngForm">
+  <div class="p-field">
+    <label for="title">Nombre de Departamento</label>
+    <input pInputText class="" type="text" name="title" [(ngModel)]="department.title" #title="ngModel" required />
+    <button pButton class="ui-button-success" type="submit" icon="pi pi-save">
     </button>
-    <button mat-icon class="bg-secondary" type="button" label="Cancel" (click)="toggle()">
-      <mat-icon>cancel</mat-icon>
+    <button pButton class="ui-button-info" type="button" icon="pi pi-times" (click)="toggle()">
     </button>
   </div>
+
 </form>
 <p *ngIf="title.errors && (title.dirty||title.touched)" class="text-danger">Por favor ingrese el nombre del
   Departamento</p>

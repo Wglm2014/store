@@ -12,7 +12,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 export class DepartmentCreateComponent implements OnInit {
   department: Department = new Department();
   @ViewChild("editForm") form: any;
-
+  @Output() newDepartment = new EventEmitter<Department>();
 
   @Output() hideCreate = new EventEmitter<boolean>();
   toggle() {
@@ -30,7 +30,7 @@ export class DepartmentCreateComponent implements OnInit {
   save() {
     this.departmentService.create(this.department).subscribe(
       (res: HttpResponse<Department>) => {
-        this.router.navigateByUrl('department');
+        this.newDepartment.emit(res.body);
       },
       (error: HttpErrorResponse) => console.log(error.message)
     );

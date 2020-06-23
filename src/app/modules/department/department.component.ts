@@ -65,11 +65,15 @@ export class DepartmentComponent implements OnInit {
     this.departmentService.delete(id).subscribe(
       (res: any) => {
         console.log(res);
-        console.log(this.data.filter(row => { return row.id != res.body.id }));
+        this.data = this.data.filter(row => { return row.id != res.body.id });
         return res
       }
       , (error: HttpErrorResponse) => console.log(error.message)
     );
+  }
+
+  addDepartment(department: Department) {
+    this.data.push(department);
   }
 
   goToMunicipalities(department: Department) {

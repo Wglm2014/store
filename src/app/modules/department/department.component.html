@@ -1,60 +1,61 @@
-<div class="container">
-  <div class="row text-center mt-5 mb-5">
-    <h1 class="col-12">
-      <button mat-icon-button class="bg-primary" (click)="toggle()">
-        <mat-icon>add</mat-icon>
-      </button> Departamentos
-    </h1>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <department-create [hidden]="hideParent" (hideCreate)="toggle()"></department-create>
+  <div class="container">
+    <div class="p-grid p-justify-center">
+      <h1 class="p-col text-center">
+        <button pButton class="ui-button-rounded ui-button-info" (click)="toggle()" icon="pi pi-plus-circle">
+        </button> Departamentos
+      </h1>
+    </div>
+    <div class="p-grid">
+      <div class="p-col">
+        <department-create [hidden]="hideParent" (hideCreate)="toggle()" (newDepartment)="addDepartment($event)">
+        </department-create>
+      </div>
+    </div>
+    <div class="p-grid">
+      <p-table [value]="data" dataKey="id" editMode="row" [columns]="cols" [paginator]="true" [rows]=10
+        [showCurrentPageReport]="true" current-PageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+              {{col.header}}
+              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
+                ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order">
+              </p-sortIcon>
+            </th>
+            <th class="text-center">Opciones</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
+          <tr [pEditableRow]="rowData">
+            <td>
+              {{rowData.id}}
+            </td>
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" [(ngModel)]="rowData.title" required>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{rowData.title}}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td class="text-center">
+
+              <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info"
+                (click)="onRowEditInit(rowData)"></button>
+              <button *ngIf="!editing" pButton type="button" icon="pi pi-trash" class="ui-button-danger"
+                (click)="onDelete(rowData.id)"></button>
+              <button *ngIf="!editing" pButton type="button" icon="pi pi-info-circle" class="ui-button-secondary"
+                (click)="goToMunicipalities(rowData)" data-toggle="tooltip" data-placemment="top"
+                title="Ir a Municipalidades"></button>
+              <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-save" class="ui-button-success"
+                (click)="onRowEditSave(rowData)"></button>
+              <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-info"
+                (click)="onRowEditCancel(rowData, ri)"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
   </div>
-
-  <p-table [value]="data" dataKey="id" editMode="row" [columns]="cols" [paginator]="true" [rows]=10
-    [showCurrentPageReport]="true" current-PageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
-    <ng-template pTemplate="header" let-columns>
-      <tr>
-        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-          {{col.header}}
-          <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
-            ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order">
-          </p-sortIcon>
-        </th>
-        <th class="text-center">Opciones</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
-      <tr [pEditableRow]="rowData">
-        <td>
-          {{rowData.id}}
-        </td>
-        <td>
-          <p-cellEditor>
-            <ng-template pTemplate="input">
-              <input pInputText type="text" [(ngModel)]="rowData.title" required>
-            </ng-template>
-            <ng-template pTemplate="output">
-              {{rowData.title}}
-            </ng-template>
-          </p-cellEditor>
-        </td>
-        <td class="text-center">
-
-          <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info"
-            (click)="onRowEditInit(rowData)"></button>
-          <button *ngIf="!editing" pButton type="button" icon="pi pi-trash" class="ui-button-danger"
-            (click)="onDelete(rowData.id)"></button>
-          <button *ngIf="!editing" pButton type="button" icon="pi pi-info-circle" class="ui-button-secondary"
-            (click)="goToMunicipalities(rowData)" data-toggle="tooltip" data-placemment="top"
-            title="Ir a Municipalidades"></button>
-          <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-save" class="ui-button-success"
-            (click)="onRowEditSave(rowData)"></button>
-          <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-info"
-            (click)="onRowEditCancel(rowData, ri)"></button>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
-</div>
