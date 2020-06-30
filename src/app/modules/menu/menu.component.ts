@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem, MegaMenuItem } from 'primeng/api';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -9,14 +10,26 @@ import { MenuItem, MegaMenuItem } from 'primeng/api';
 })
 export class MenuComponent implements OnInit {
   items: MenuItem[];
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.items = [
+
       {
-        label: 'Home',
-        icon: 'pi pi-home',
-        routerLink: [""]
+        label: 'Ventas',
+        items: [
+          { label: 'Apertura de Caja' },
+          { label: 'Ventas' },
+          { label: 'Cierre De Caja' }
+        ]
+      },
+      {
+        label: 'Inventario',
+        items: [
+          { label: 'Ingreso de Mercaderia' },
+          { label: 'Listado de Productos' },
+          { label: 'Categorias de Productos' }
+        ]
       },
       {
         label: 'Mantenimineto',
@@ -27,6 +40,9 @@ export class MenuComponent implements OnInit {
         ]
       }
     ]
+  }
+  goHome() {
+    this.router.navigate([""]);
   }
 }
 

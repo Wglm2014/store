@@ -1,31 +1,22 @@
-<div class="card">
-  <h3 class="card card-title text-center bg-light">{{formTitle}} El Municipio</h3>
-  <div class="card-body">
-    <form action="" class="form-row" name="editForm" (ngSubmit)="save()" #editForm="ngForm">
-      <mat-form-field class="col-4 mr-0 ml-0">
-        <input matInput type="text" placeholder="Nombre Abreviado de municipio" name="title"
-          [(ngModel)]="municipality.title" #title="ngModel" required>
-      </mat-form-field>
+<div class=" bg-light mt-5 mb-5">
+
+  <h3 class="ui-card-title">Agregue El/Los Municipio(s)</h3>
+  <div class="ui-card-content">
+    <form class="p-formgroup-inline" name="editForm" (ngSubmit)="save()" #editForm="ngForm">
+
+      <input pInputText type="text" placeholder="Nombre Abreviado de municipio" name="title"
+        [(ngModel)]="municipality.title" #title="ngModel" required>
       <p *ngIf="title.errors && (title.dirty||title.touched)" class="text-danger">Por favor ingrese un valor
         permitido</p>
 
-      <mat-form-field class="col-6 mr-0 ml-0">
-        <input matInput placeholder="Nombre de Municipio" type="text" name="longTitle"
-          [(ngModel)]="municipality.longTitle" #longTitle="ngModel" required>
-      </mat-form-field>
+      <input pInputText placeholder="Nombre de Municipio" type="text" name="longTitle"
+        [(ngModel)]="municipality.longTitle" #longTitle="ngModel" required>
       <p *ngIf="longTitle.errors && (longTitle.dirty||longTitle.touched)" class="text-danger">
         Por favor ingrese un valor permitido</p>
-      <div class="col-1  mr-0 ml-0">
-        <button mat-icon class="bg-primary" type="submit">
-          <mat-icon>save</mat-icon>
-        </button>
-      </div>
-      <div class="col-1 mr-0 ml-0">
-        <button mat-icon class="bg-secondary" (click)="toggle()">
-          <mat-icon>cancel</mat-icon>
-        </button>
-      </div>
 
+
+      <button pButton class="ui-button-success" type="submit" icon="pi pi-save"></button>
+      <button pButton class="ui-button-secundary" (click)="toggle()" icon="pi pi-times"></button>
     </form>
 
   </div>

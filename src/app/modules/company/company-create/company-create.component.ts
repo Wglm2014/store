@@ -1,14 +1,13 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Department } from 'src/app/models/department';
-import { Municipality } from 'src/app/models/municipality';
-import { DepartmentService } from 'src/app/services/department.service';
-import { MunicipalityService } from 'src/app/services/municipality.service';
+import { Department } from '../../../models/department';
+import { Municipality } from '../../../models/municipality';
+import { DepartmentService } from '../../../services/department.service';
+import { MunicipalityService } from '../../../services/municipality.service';
 import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Company } from 'src/app/models/company';
-import { CompanyService } from 'src/app/services/company.service';
-import { Observable, pipe } from 'rxjs';
-import { map, startWith } from 'rxjs/operators'
+import { Company } from '../../../models/company';
 import { FormControl } from '@angular/forms';
+import { CompanyService } from '../../../services/company.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'company-create',
@@ -20,12 +19,16 @@ export class CompanyCreateComponent implements OnInit {
   departments: Department[];
   municipalities: Municipality[];
   reduceMunicipalities: Municipality[];
-  municipality = new FormControl();
-  department = new FormControl();
+  municipality: string;
+  department: string;
   company: Company = new Company();
+  telephone: string;
+  otherPhone: string;
+  image: any;
+  logo: Blob;
 
-  filteredDepartment: Observable<Department[]>;
-  filteredMunicipality: Observable<Municipality[]>;
+  filteredDepartment: any[];
+  filteredMunicipality: any[];
 
   @Output() createdCompany = new EventEmitter<Company>();
 
@@ -33,39 +36,56 @@ export class CompanyCreateComponent implements OnInit {
   constructor(private departmentService: DepartmentService,
     private municipalityService: MunicipalityService,
     private companyService: CompanyService,
-    private http: HttpClient) {
+    private http: HttpClient,
+    private messageService: MessageService) {
 
   }
 
   ngOnInit(): void {
     this.departmentService.findAll().subscribe(
       (response: HttpResponse<Department[]>) => { this.departments = response.body },
-      (error: HttpErrorResponse) => { console.log(error) }
+      (error: HttpErrorResponse) => { return error }
     );
 
     this.municipalityService.findAll().subscribe(
       (response: HttpResponse<Municipality[]>) => { this.municipalities = response.body },
       (error: HttpErrorResponse) => { console.log(error) }
     );
-
-    this.filteredDepartment = this.department.valueChanges
-      .pipe(startWith(''),
-        map(value => typeof value === 'string' ? value : value.title),
-        map(value => value ? this._filter(value, this.departments) : this.departments.slice())
-      );
-    this.filteredMunicipality = this.municipality.valueChanges
-      .pipe(startWith(''),
-        map(value => typeof value === 'string' ? value : value.title),
-        map(value => value ? this._filter(value, this.municipalities) : this.municipalities.slice())
-      );
-
-    this.reduceMunicipalities = this.municipalities;
   }
-  private _filter(value: string, data: Department[] | Municipality[]): Department[] {
-    const filterValue = value.toLowerCase();
-    return data.filter(option => option.title.toLowerCase().indexOf(filterValue));
+
+  filterDepartment(event) {
+    let query = event.query;
+    this.filteredDepartment = [];
+    for (let i = 0; i < this.departments.length; i++) {
+      let department = this.departments[i];
+      if (department.title.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        this.filteredDepartment.push(department.title);
+        // console.log(department);
+      }
+    }
   }
+
+  filterMunicipality(event) {
+    let query = event.query;
+    this.filteredMunicipality = [];
+    for (let i = 0; i < this.municipalities.length; i++) {
+      let municipality = this.municipalities[i];
+
+      if (municipality.title.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        this.filteredMunicipality.push(municipality.longTitle);
+        // console.log(municipality);
+      }
+    }
+  }
+
+  filterMunicipalities(title: string) {
+    const thisDepartment = this.departments.filter(item => { if (item.title === title) { return item } });
+    this.reduceMunicipalities = thisDepartment[0]['municipalities'];
+  }
+
   save() {
+    console.log(this.department);
+    console.log(this.municipality);
     this.companyService.create(this.company).subscribe(
       (response: HttpResponse<Company>) => {
         this.createdCompany.emit(response.body);
@@ -75,10 +95,29 @@ export class CompanyCreateComponent implements OnInit {
       }
     );
   }
+  edit() {
 
-  filterMunicipality(title: string) {
-    const thisDepartment = this.departments.filter(item => { if (item.title === title) { return item } });
-    this.reduceMunicipalities = thisDepartment[0]['municipalities'];
+  }
+  delete() { }
+  loadImage(event) {
+    const target = event.target;
+    const files = target.files;
+    this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
+    // console.log(files);
+    // console.log(target);
+    if (FileReader && files && files.length) {
+      let fileReader = new FileReader()
+      fileReader.onload = () => {
+        console.log(fileReader.result);
+        this.image = fileReader.result;
+        this.company.logo = this.image;//.readAsBuffer;
+      }
+      fileReader.readAsDataURL(files[0]);
+    } else {
+      console.error("not compatible");
+    }
+
+
   }
 
 }

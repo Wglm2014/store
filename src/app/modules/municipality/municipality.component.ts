@@ -13,15 +13,15 @@ import { Department } from 'src/app/models/department';
 export class MunicipalityComponent implements OnInit, OnDestroy {
   municipalities: Municipality[]; // list of municipalities already recorded in the DB
   municipality: Municipality;
+  municipalityClone: { [s: string]: Municipality } = {};
+
   department: Department = new Department(); //variable to hold the department the municipalities belong
   hideCreate: boolean = true;
+  hideParent: boolean = false;
   totalRecords: any;
   routeSub: any;
-
+  editing: boolean = false;
   noMunicipalities: string; // string to display if there is no municipalities
-
-  formTitle: string; // string to display as a header if is addgin or editing
-
 
   constructor(private municipalityService: MunicipalityService,
     private router: Router,
@@ -76,29 +76,40 @@ export class MunicipalityComponent implements OnInit, OnDestroy {
 
   }
   onUpdate(data: Municipality) {
-    this.formTitle = "Edite";
-    this.municipality = data;
-    this.hideCreate = false;
+    this.municipalityService.update(data).subscribe(
+      (res: any) => {
+        delete this.municipalityClone[data.id];
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      })
+    // this.municipality = data;
+
+
   }
 
   newMunicipality(municipality: Municipality) {
-    if (this.formTitle === "Agregue") {
-      this.municipalities.push(municipality);
-    } else {
-      const index = this.municipalities.findIndex(item => { return item.id === municipality.id })
-      this.municipalities[index].title = municipality.title;
-      this.municipalities[index].longTitle = municipality.longTitle;
-    }
+    this.municipalities.push(municipality);
+    // const index = this.municipalities.findIndex(item => { return item.id === municipality.id })
+    // this.municipalities[index].title = municipality.title;
+    // this.municipalities[index].longTitle = municipality.longTitle;
 
   }
   toggle() {
-    this.municipality = new Municipality();
-    this.formTitle = "Agregue";
+    // this.municipality = new Municipality();
     this.hideCreate = !this.hideCreate;
   }
 
   backDepartment() {
     this.router.navigateByUrl('department');
+  }
+
+  onRowEditInit(municipality: Municipality) {
+    this.municipalityClone[municipality.id] = { ...municipality };
+  }
+  onRowEditCancel(municiaplity: Municipality, index: number) {
+    this.municipalities[index] = this.municipalityClone[municiaplity.id];
+    delete this.municipalityClone[municiaplity.id];
   }
 
 }

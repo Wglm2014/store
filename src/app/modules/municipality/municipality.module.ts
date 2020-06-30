@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { MunicipalityService } from 'src/app/services/municipality.service';
 import { MunicipalityRoutingModule } from './municipality-routing.module';
 import { FormsModule } from '@angular/forms';
-import { MaterialModule } from 'src/app/material.module';
 import { PrimengModule } from '../../primeng.module';
 import { MunicipalityComponent } from './municipality.component';
 import { MunicipalityCreateComponent } from './municipality-create/municipality-create.component';
@@ -16,7 +15,6 @@ import { MunicipalityCreateComponent } from './municipality-create/municipality-
     CommonModule,
     MunicipalityRoutingModule,
     FormsModule,
-    MaterialModule,
     PrimengModule
   ],
   providers: [MunicipalityService]

@@ -9,4 +9,7 @@
   </mat-menu>
 </mat-toolbar> -->
 
-<p-menubar [model]="items"></p-menubar>
+<p-menubar [model]="items" styleClass="bg-primary font-style icon-home">
+  <button pButton icon="pi pi-home" (click)="goHome()">
+  </button>
+</p-menubar>

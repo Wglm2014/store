@@ -1,38 +1,63 @@
-<header class="row text-center mt-5">
-  <h1 class="col-12">Compañia</h1>
-</header>
 <main class="container">
-  <form name="createForm" (ngSubmit)="save()" #createForm="ngForm">
-    <mat-form-field>
-      <input matInput placeholder="Nombre de la Compañia" name="title" [(ngModel)]="company.title" #title="ngModel">
-    </mat-form-field>
+  <header class="p-grid text-center mt-5">
+    <h1 class="p-col">Compañia</h1>
+  </header>
 
-    <mat-form-field>
-      <input matInput placeholder="Nombre Comercial" name="commercialName" [(ngModel)]="company.commercialName"
-        #commercialName="ngModel">
-    </mat-form-field>
+  <form class="ui-fluid p-formgrid" name="createForm" (ngSubmit)="save()" #createForm="ngForm">
+    <div class="p-grid">
+      <div class="p-col-12">
+        <input pInputText class="p-col-6" placeholder="Nombre de la Compañia" name="title" [(ngModel)]="company.title"
+          #title="ngModel">
+      </div>
+      <div class="p-col-12">
+        <input pInputText class="p-col-6" placeholder="Nombre Comercial" name="commercialName"
+          [(ngModel)]="company.commercialName" #commercialName="ngModel">
+      </div>
+    </div>
+    <div class="p-grid">
+      <div class="p-col-12">
+        <input pInputText placeholder="Direccion" name="address" [(ngModel)]="company.address" #address="ngModel">
+      </div>
+      <div class="p-col-6">
+        <p-autoComplete placeholder="Departamento" [(ngModel)]="department" [suggestions]="filteredDepartment"
+          (completeMethod)="filterDepartment($event)" [size]="30" [minLength]="1" name="department"
+          (change)="filterMunicipalities($event.target.value)">
+        </p-autoComplete>
+      </div>
+      <div class="p-col-6">
+        <p-autoComplete placeholder="Municipio" [(ngModel)]="municipality" [suggestions]="filteredMunicipality"
+          (completeMethod)="filterMunicipality($event)" [size]="50" [minLength]="1" name="municipality">
+        </p-autoComplete>
+      </div>
+    </div>
+    <div class="p-grid">
+      <div class="p-col-6">
+        <p-inputMask mask="9999-9999" name="telephone" [(ngModel)]="company.telephone" placeholder="tel. 9999-9999">
+        </p-inputMask>
+      </div>
+      <div class="p-col-6">
+        <p-inputMask mask="9999-9999" name="otherPhone" [(ngModel)]="company.otherPhone" placeholder="tel. 9999-9999">
+        </p-inputMask>
+      </div>
 
-    <mat-form-field>
-      <input matInput placeholder="Direccion" name="address" [(ngModel)]="company.address" #address="ngModel">
-    </mat-form-field>
+      <div class="p-col-12 text-center">
 
-    <mat-form-field>
-      <input matInput type="text" placeholder="Departamento" name="depa" [formControl]="department"
-        [matAutocomplete]="auto" #inputDepa (change)="filterMunicipality($event.target.value)">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let item of departments" [value]="item.title"
-          ng-select="filterMunicipality($event.target.value)">
-          {{item.title}}</mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+        <input pButton class="upload-input" type="file" accept="image/png, image/jpeg" [(ngModel)]="logo" name="logo"
+          (change)="loadImage($event)">
 
-    <mat-form-field>
-      <input matInput type="text" placeholder="Municipio" name="muni" [formControl]="municipality"
-        [matAutocomplete]="autoMuni">
-      <mat-autocomplete #autoMuni="matAutocomplete">
-        <mat-option *ngFor="let option of reduceMunicipalities" [value]="option.longTitle">{{option.longTitle}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+        <img id=" company-image" [src]="image" alt="Sarai Sarai">
+      </div>
+      <div class="p-col-5">
+        <button pButton class="ui-button-success" type="submit"><i class="pi pi-save"></i> Guardar</button>
+      </div>
+      <div class="p-col-5">
+        <button pButton class="ui-button-warning" type="button" (click)="edit()"><i class="pi pi-pencil"></i>
+          Editar</button>
+      </div>
+      <div class="p-col-2">
+        <button pButton class="ui-button-danger" type="button" (click)="delete()"><i
+            class="pi pi-trash"></i>Eliminar</button>
+      </div>
+    </div>
   </form>
 </main>

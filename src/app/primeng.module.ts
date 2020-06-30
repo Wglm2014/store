@@ -5,13 +5,15 @@ import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputMaskModule } from 'primeng/inputmask';
+import { FileUploadModule } from 'primeng/fileupload';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
 import { MegaMenuModule } from 'primeng/megamenu';
-
+import { CardModule } from 'primeng/card';
 
 
 @NgModule({
@@ -23,12 +25,15 @@ import { MegaMenuModule } from 'primeng/megamenu';
     CalendarModule,
     DropdownModule,
     InputTextModule,
+    InputMaskModule,
+    FileUploadModule,
     AutoCompleteModule,
     MessagesModule,
     MessageModule,
     MenuModule,
     MenubarModule,
-    MegaMenuModule
+    MegaMenuModule,
+    CardModule
   ],
   exports: [
     TableModule,
@@ -37,12 +42,15 @@ import { MegaMenuModule } from 'primeng/megamenu';
     CalendarModule,
     DropdownModule,
     InputTextModule,
+    InputMaskModule,
+    FileUploadModule,
     AutoCompleteModule,
     MessagesModule,
     MessageModule,
     MenuModule,
     MenubarModule,
-    MegaMenuModule
+    MegaMenuModule,
+    CardModule
   ],
 })
 export class PrimengModule { }

@@ -5,7 +5,10 @@ import { BranchService } from 'src/app/services/branch.service';
 import { CompanyRoutingModule } from './company-routing.module';
 import { CompanyCreateComponent } from './company-create/company-create.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from 'src/app/material.module';
+import { PrimengModule } from '../../primeng.module';
+import { MessageService } from 'primeng/api';
+import { CompanyService } from 'src/app/services/company.service';
+
 
 @NgModule({
   declarations: [CompanyComponent, CompanyCreateComponent],
@@ -14,8 +17,8 @@ import { MaterialModule } from 'src/app/material.module';
     CompanyRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    PrimengModule
   ],
-  providers: [BranchService]
+  providers: [CompanyService, BranchService, MessageService]
 })
 export class CompanyModule { }

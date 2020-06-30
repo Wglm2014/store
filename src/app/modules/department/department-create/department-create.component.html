@@ -1,7 +1,7 @@
 <form class="p-formgroup-inline" name="editForm" (ngSubmit)="save()" #editForm="ngForm">
   <div class="p-field">
     <label for="title">Nombre de Departamento</label>
-    <input pInputText class="" type="text" name="title" [(ngModel)]="department.title" #title="ngModel" required />
+    <input pInputText type="text" name="title" [(ngModel)]="department.title" #title="ngModel" required />
     <button pButton class="ui-button-success" type="submit" icon="pi pi-save">
     </button>
     <button pButton class="ui-button-info" type="button" icon="pi pi-times" (click)="toggle()">

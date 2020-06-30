@@ -14,7 +14,6 @@ export class MunicipalityCreateComponent implements OnInit, OnChanges {
   municipality: Municipality = new Municipality();
   @Input("dataMunicipality") dataMunicipality: Municipality;
   @Input("dataDepartment") data: Department;
-  @Input("formTitle") formTitle: string;
 
 
   @ViewChild("editForm") form: any;
@@ -47,25 +46,15 @@ export class MunicipalityCreateComponent implements OnInit, OnChanges {
   }
 
   save() {
+    this.municipality.departmentId = this.data.id;
+    this.municipalityService.create(this.municipality).subscribe(
+      (response: HttpResponse<Municipality>) => {
+        // this.municipality = response.body;
+        this.newMunicipality.emit(response.body);
+      },
+      (error: HttpErrorResponse) => { console.log(error.message) }
+    );
 
-    if (this.formTitle === "Edite") {
-      this.dataMunicipality.departmentId = this.data.id;
-      this.municipalityService.update(this.dataMunicipality).subscribe(
-        (response: HttpResponse<Municipality>) => {
-          this.dataMunicipality = response.body;
-          this.newMunicipality.emit(this.dataMunicipality)
-        }, (error: HttpErrorResponse) => { console.log(error.message) }
-      )
-    } else {
-      this.municipality.departmentId = this.data.id;
-      this.municipalityService.create(this.municipality).subscribe(
-        (response: HttpResponse<Municipality>) => {
-          this.municipality = response.body;
-          this.newMunicipality.emit(this.municipality);
-        },
-        (error: HttpErrorResponse) => { console.log(error.message) }
-      );
-    }
     if (this.form.valid) {
       this.form.reset();
     }

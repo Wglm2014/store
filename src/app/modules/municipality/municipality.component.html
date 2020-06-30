@@ -1,58 +1,79 @@
-<div class="container">
+<div class="container mt-5">
   <div class="p-grid text-center">
-    <h1 class="p-col">
-      <button pButton class="ui-button-rounded ui-button-info" icon="pi pi-plus-circle" (click)="toggle()">
-      </button>
-      Municipios del Departamento de {{department.title}}
-    </h1>
-  </div>
-  <div class="p-grid text-center">
-    <div class="p-col">
+    <div class="p-col bg-light border ">
+      <h1>
+        <button pButton class="ui-button-rounded ui-button-info" icon="pi pi-plus-circle" (click)="toggle()">
+        </button>
+        Municipios del Departamento de {{department.title}}
+      </h1>
       <button class="btn-link" (click)="backDepartment()">
-        <h3>
+        <h4>
           <i class="pi pi-arrow-circle-left "></i>
           Volver a Departamentos
-        </h3>
+        </h4>
       </button>
     </div>
   </div>
 
   <div class="p-grid">
     <div class="p-col">
-      <municipality-create [hidden]="hideCreate" [dataMunicipality]="municipality" [formTitle]="formTitle"
-        (newMunicipality)="newMunicipality($event)" [dataDepartment]="department" (hideCreate)="toggle()">
+      <municipality-create [hidden]="hideCreate" (newMunicipality)="newMunicipality($event)"
+        [dataDepartment]="department" (hideCreate)="toggle()">
       </municipality-create>
     </div>
   </div>
 
 
   <div class="p-grid">
-    <div class="p-col">
-      <table class="table table-striped" displayMode="flat">
-        <tr class="row bg-light">
-          <th class="col-1">No.</th>
-          <th class="col-3">Nombre Corto</th>
-          <th class="col-6">Nombre Largo</th>
-          <th class="col 1">Editar</th>
-          <th class="col-1">Borrar</th>
+    <p-table [value]="municipalities" dataKey="id" editMode="row">
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="p-col-1">No.</th>
+          <th class="p-col-3">Nombre Corto</th>
+          <th class="p-col-6">Nombre Largo</th>
+          <th class="p-col-2">Options</th>
         </tr>
-        <!-- detail -->
-        <tr *ngFor="let item of municipalities" class="row">
-          <td class="col-1">{{item.id}}</td>
-          <td class="col-3 ">{{item.title}}</td>
-          <td class="col-6">{{item.longTitle}}</td>
-          <td class="col-1">
-            <a mat-icon-button (click)="onUpdate(item)">
-              <i class="fa fa-edit" aria-hidden="true"></i></a>
+      </ng-template>
+      <!-- detail -->
+      <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
+
+        <tr [pEditableRow]="rowData">
+          <td class="p-col-1">{{rowData.id}}</td>
+
+          <td class="p-col-3 ">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="rowData.title" required>
+              </ng-template>
+              <ng-template pTemplate="output">{{rowData.title}}</ng-template>
+            </p-cellEditor>
           </td>
-          <td class="col-1">
-            <a mat-icon-button (click)="onDelete(item.id)">
-              <i class="fa fa-trash" aria-hidden="true"></i></a>
+          <td class="col-6">
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="rowData.longTitle" required>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{rowData.longTitle}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td class="p-col-2">
+            <button *ngIf="!editing" pButton pInitEditableRow icon="pi pi-pencil"
+              (click)="onRowEditInit(rowData)"></button>
+            <button *ngIf="!editing" pButton class="ui-button-danger" icon="pi pi-trash"
+              (click)="onDelete(rowData.id)"></button>
+            <button *ngIf="editing" pButton class="ui-button-success" pSaveEditableRow icon="pi pi-save"
+              (click)="onUpdate(rowData)"></button>
+            <button *ngIf="editing" pButton pCancelEditableRow icon="pi pi-times"
+              (click)="onRowEditCancel(rowData, ri)"></button>
           </td>
 
         </tr>
-      </table>
-    </div>
+      </ng-template>
+
+
+    </p-table>
   </div>
 
   <div class="p-grid text-center">
