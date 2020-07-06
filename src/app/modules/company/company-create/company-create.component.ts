@@ -32,7 +32,11 @@ export class CompanyCreateComponent implements OnInit {
 
   @Output() createdCompany = new EventEmitter<Company>();
 
+  @Output() addCompany = new EventEmitter<boolean>();
 
+  toggle() {
+    this.addCompany.emit(true);
+  }
   constructor(private departmentService: DepartmentService,
     private municipalityService: MunicipalityService,
     private companyService: CompanyService,
@@ -84,8 +88,7 @@ export class CompanyCreateComponent implements OnInit {
   }
 
   save() {
-    console.log(this.department);
-    console.log(this.municipality);
+
     this.companyService.create(this.company).subscribe(
       (response: HttpResponse<Company>) => {
         this.createdCompany.emit(response.body);
@@ -99,16 +102,16 @@ export class CompanyCreateComponent implements OnInit {
 
   }
   delete() { }
+
+
   loadImage(event) {
     const target = event.target;
     const files = target.files;
     this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
-    // console.log(files);
-    // console.log(target);
+
     if (FileReader && files && files.length) {
       let fileReader = new FileReader()
       fileReader.onload = () => {
-        console.log(fileReader.result);
         this.image = fileReader.result;
         this.company.logo = this.image;//.readAsBuffer;
       }

@@ -36,8 +36,6 @@ export class MunicipalityComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.routeSub = this.activeRoute.queryParams.subscribe(
       (params) => {
-        console.log("init parent");
-        console.log(JSON.stringify(params));
         this.department.id = params.id;
         this.department.title = params.title;
         this.municipalityService.findByDepartmentId(params.id, null).subscribe(
@@ -45,7 +43,6 @@ export class MunicipalityComponent implements OnInit, OnDestroy {
             this.totalRecords = response.headers.get('X-Total-Count');
             this.municipalities = response.body;
             this.noMunicipalities = "";
-
             console.log(response.body);
           },
           (error: HttpErrorResponse) => {

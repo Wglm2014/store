@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { TableModule } from 'primeng/table';
+import { TabViewModule } from 'primeng/tabview'
 import { PanelModule } from 'primeng/panel';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
@@ -20,6 +21,7 @@ import { CardModule } from 'primeng/card';
   declarations: [],
   imports: [
     TableModule,
+    TabViewModule,
     PanelModule,
     ButtonModule,
     CalendarModule,
@@ -37,6 +39,7 @@ import { CardModule } from 'primeng/card';
   ],
   exports: [
     TableModule,
+    TabViewModule,
     PanelModule,
     ButtonModule,
     CalendarModule,

@@ -1,1 +1,20 @@
-<company-create></company-create>
+<header class="p-grid text-center mt-5">
+    <h1 class="p-col"><button pButton class="ui-button-rounded ui-button-primary" (click)="toggle()"
+            icon="pi pi-plus-circle"></button>
+        Compañia</h1>
+</header>
+<p-tabView *ngIf="noCompanies !==0">
+    <p-tabPanel [header]="item.title" *ngFor="let item of companies; let i = index" [selected]="i ==0">
+
+    </p-tabPanel>
+
+</p-tabView>
+
+<company-create [hidden]="hide" (addCompany)="toggle()" (createdCompany)="newCompany($event)"></company-create>
+
+<p-card *ngIf="noCompanies===0 && hide">
+    <p-header class="bg-primary">
+        <h1>Todavia No existen Comañias creadas</h1>
+    </p-header>
+    <h3>Por favor presione el boton <i class="pi pi-plus-circle"></i> para crear una nueva Compañia</h3>
+</p-card>

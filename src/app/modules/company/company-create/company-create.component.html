@@ -1,7 +1,4 @@
 <main class="container">
-  <header class="p-grid text-center mt-5">
-    <h1 class="p-col">Compañia</h1>
-  </header>
 
   <form class="ui-fluid p-formgrid" name="createForm" (ngSubmit)="save()" #createForm="ngForm">
     <div class="p-grid">
@@ -39,22 +36,26 @@
         <p-inputMask mask="9999-9999" name="otherPhone" [(ngModel)]="company.otherPhone" placeholder="tel. 9999-9999">
         </p-inputMask>
       </div>
+    </div>
 
-      <div class="p-col-12 text-center">
-
-        <input pButton class="upload-input" type="file" accept="image/png, image/jpeg" [(ngModel)]="logo" name="logo"
-          (change)="loadImage($event)">
-
-        <img id=" company-image" [src]="image" alt="Sarai Sarai">
+    <div class="p-grid">
+      <div class="p-col-12">
+        <span>
+          <input pButton class="upload-input" type="file" accept="image/png, image/jpeg" [(ngModel)]="logo" name="logo"
+            (change)="loadImage($event)">
+          <img id="company-image" [src]="image" alt="Sarai Sarai">
+        </span>
       </div>
-      <div class="p-col-5">
+    </div>
+    <div class="p-grid">
+      <div class="p-col-4">
         <button pButton class="ui-button-success" type="submit"><i class="pi pi-save"></i> Guardar</button>
       </div>
-      <div class="p-col-5">
+      <div class="p-col-4">
         <button pButton class="ui-button-warning" type="button" (click)="edit()"><i class="pi pi-pencil"></i>
           Editar</button>
       </div>
-      <div class="p-col-2">
+      <div class="p-col-4">
         <button pButton class="ui-button-danger" type="button" (click)="delete()"><i
             class="pi pi-trash"></i>Eliminar</button>
       </div>
