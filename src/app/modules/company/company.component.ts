@@ -18,6 +18,12 @@ export class CompanyComponent implements OnInit {
     this.companyService.findAll(null).subscribe(
       (response: HttpResponse<Company[]>) => {
         this.companies = response.body;
+        this.companies.forEach(company => {
+          console.log(company.logo.length);
+          console.log(company.logo);
+          // company.logo = new URL(`data:${company.logoContentType};base64,/9j/${company.logo}`);
+        })
+        console.log(this.companies);
         this.noCompanies = this.companies.length;
       },
       (error: HttpErrorResponse) => {
@@ -25,8 +31,8 @@ export class CompanyComponent implements OnInit {
         this.noCompanies = 0;
         console.log(error);
       }
-
     )
+
   }
   toggle() {
     this.hide = !this.hide;
@@ -34,6 +40,13 @@ export class CompanyComponent implements OnInit {
 
 
   newCompany(company: Company) {
+
+  }
+
+  edit(company: Company) {
+
+  }
+  delete(company: Company) {
 
   }
 }

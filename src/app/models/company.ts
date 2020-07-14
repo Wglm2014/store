@@ -6,7 +6,13 @@ export class Company {
     public address?: string,
     public telephone?: string,
     public otherPhone?: string,
-    public logo?: Blob,
+    public logo?: any,
     public logoContentType?: string
   ) { }
+
+  buildLogo(logoContentType: string, logo: any) {
+    return `data:${logoContentType};base64,${logo}`;
+  }
 }
+
+

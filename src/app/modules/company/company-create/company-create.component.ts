@@ -1,11 +1,11 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Department } from '../../../models/department';
 import { Municipality } from '../../../models/municipality';
 import { DepartmentService } from '../../../services/department.service';
 import { MunicipalityService } from '../../../services/municipality.service';
 import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Company } from '../../../models/company';
-import { FormControl } from '@angular/forms';
+// import { FormControl } from '@angular/forms';
 import { CompanyService } from '../../../services/company.service';
 import { MessageService } from 'primeng/api';
 
@@ -25,10 +25,12 @@ export class CompanyCreateComponent implements OnInit {
   telephone: string;
   otherPhone: string;
   image: any;
-  logo: Blob;
-
+  logo: any;
   filteredDepartment: any[];
   filteredMunicipality: any[];
+
+  @ViewChild("createForm") form: any;
+
 
   @Output() createdCompany = new EventEmitter<Company>();
 
@@ -88,15 +90,19 @@ export class CompanyCreateComponent implements OnInit {
   }
 
   save() {
-
+    this.company.address = `${this.company.address}, ${this.municipality}, ${this.department}`;
     this.companyService.create(this.company).subscribe(
       (response: HttpResponse<Company>) => {
+
         this.createdCompany.emit(response.body);
       },
       (error: HttpErrorResponse) => {
         console.log(error);
       }
     );
+    if (this.form.valid) {
+      this.form.reset();
+    }
   }
   edit() {
 
@@ -105,15 +111,19 @@ export class CompanyCreateComponent implements OnInit {
 
 
   loadImage(event) {
+
     const target = event.target;
     const files = target.files;
     this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
-
     if (FileReader && files && files.length) {
       let fileReader = new FileReader()
       fileReader.onload = () => {
         this.image = fileReader.result;
-        this.company.logo = this.image;//.readAsBuffer;
+        console.log(this.image.length);
+        this.company.logo = this.image;
+        console.log(this.company.logo);
+        this.company.logoContentType = files[0].type;
+
       }
       fileReader.readAsDataURL(files[0]);
     } else {
@@ -122,5 +132,7 @@ export class CompanyCreateComponent implements OnInit {
 
 
   }
+
+
 
 }

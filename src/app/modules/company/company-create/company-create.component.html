@@ -4,61 +4,67 @@
     <div class="p-grid">
       <div class="p-col-12">
         <input pInputText class="p-col-6" placeholder="Nombre de la Compañia" name="title" [(ngModel)]="company.title"
-          #title="ngModel">
+          #title="ngModel" required>
+        <p *ngIf="title.errors && (title.dirty||title.touched)" class="text-danger">Por favor ingrese el nombre legal de
+          la Compañia</p>
       </div>
       <div class="p-col-12">
         <input pInputText class="p-col-6" placeholder="Nombre Comercial" name="commercialName"
-          [(ngModel)]="company.commercialName" #commercialName="ngModel">
+          [(ngModel)]="company.commercialName" #commercialName="ngModel" required>
+        <p *ngIf="commercialName.errors && (title.dirty||title.touched)" class="text-danger">Por favor ingrese el nombre
+          comercial de la Compañia</p>
       </div>
     </div>
     <div class="p-grid">
       <div class="p-col-12">
-        <input pInputText placeholder="Direccion" name="address" [(ngModel)]="company.address" #address="ngModel">
+        <input pInputText placeholder="Direccion" name="address" [(ngModel)]="company.address" #address="ngModel"
+          required>
+        <p *ngIf="title.errors && (title.dirty||title.touched)" class="text-danger">Por favor ingrese la direccion</p>
       </div>
       <div class="p-col-6">
         <p-autoComplete placeholder="Departamento" [(ngModel)]="department" [suggestions]="filteredDepartment"
           (completeMethod)="filterDepartment($event)" [size]="30" [minLength]="1" name="department"
-          (change)="filterMunicipalities($event.target.value)">
+          (change)="filterMunicipalities($event.target.value)" required forceSelection>
         </p-autoComplete>
+
       </div>
       <div class="p-col-6">
         <p-autoComplete placeholder="Municipio" [(ngModel)]="municipality" [suggestions]="filteredMunicipality"
-          (completeMethod)="filterMunicipality($event)" [size]="50" [minLength]="1" name="municipality">
+          (completeMethod)="filterMunicipality($event)" [size]="50" [minLength]="1" name="municipality" required
+          forceSelection>
         </p-autoComplete>
       </div>
     </div>
     <div class="p-grid">
       <div class="p-col-6">
-        <p-inputMask mask="9999-9999" name="telephone" [(ngModel)]="company.telephone" placeholder="tel. 9999-9999">
+        <p-inputMask mask="9999-9999" name="telephone" [(ngModel)]="company.telephone" placeholder="tel. 9999-9999"
+          required>
         </p-inputMask>
+        <p *ngIf="title.errors && (title.dirty||title.touched)" class="text-danger">Por favor ingrese el numero de
+          telefono</p>
+
       </div>
       <div class="p-col-6">
         <p-inputMask mask="9999-9999" name="otherPhone" [(ngModel)]="company.otherPhone" placeholder="tel. 9999-9999">
         </p-inputMask>
+
       </div>
     </div>
 
     <div class="p-grid">
       <div class="p-col-12">
         <span>
-          <input pButton class="upload-input" type="file" accept="image/png, image/jpeg" [(ngModel)]="logo" name="logo"
-            (change)="loadImage($event)">
+          <input pButton class="upload-input" type="file" accept="image/png, image/jpeg, image/svg" [(ngModel)]="logo"
+            name="logo" (change)="loadImage($event)" id="my-image">
           <img id="company-image" [src]="image" alt="Sarai Sarai">
         </span>
       </div>
     </div>
     <div class="p-grid">
-      <div class="p-col-4">
+      <div class="p-col-12">
         <button pButton class="ui-button-success" type="submit"><i class="pi pi-save"></i> Guardar</button>
       </div>
-      <div class="p-col-4">
-        <button pButton class="ui-button-warning" type="button" (click)="edit()"><i class="pi pi-pencil"></i>
-          Editar</button>
-      </div>
-      <div class="p-col-4">
-        <button pButton class="ui-button-danger" type="button" (click)="delete()"><i
-            class="pi pi-trash"></i>Eliminar</button>
-      </div>
+
     </div>
   </form>
 </main>

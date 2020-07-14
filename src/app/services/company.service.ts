@@ -8,7 +8,7 @@ import { Company } from '../models/company';
   providedIn: 'root'
 })
 export class CompanyService {
-  private resourceUrl = SERVER_API_URL;
+  private resourceUrl = SERVER_API_URL + "api/company";
   constructor(private http: HttpClient) { }
 
   findAll(options: any): Observable<HttpResponse<Company[]>> {
