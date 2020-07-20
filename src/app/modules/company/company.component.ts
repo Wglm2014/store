@@ -10,8 +10,11 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 })
 export class CompanyComponent implements OnInit {
   companies: Company[];
+  department: string;
+  municipality: string;
   hide: boolean = true;
   noCompanies: number;
+  readonly: boolean = true;
   constructor(private companyService: CompanyService) { }
 
   ngOnInit(): void {
@@ -44,7 +47,10 @@ export class CompanyComponent implements OnInit {
   }
 
   edit(company: Company) {
-
+    this.readonly = !this.readonly;
+    this.department = company.address.split(",")[1];
+    this.municipality = company.address.split(",")[2]
+    console.log(this.department);
   }
   delete(company: Company) {
 

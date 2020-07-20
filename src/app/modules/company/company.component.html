@@ -3,19 +3,21 @@
       icon="pi pi-plus-circle"></button>
     Compañia</h1>
 </header>
-<p-tabView *ngIf="noCompanies !==0">
+<p-tabView *ngIf="noCompanies !==0" [hidden]="!hide">
   <p-tabPanel [header]="item.title" *ngFor="let item of companies; let i = index" [selected]="i ==0">
 
     <div class="ui-fluid p-formgrid p-grid">
       <div class="p-field p-col-12"> <label for="">Nombre Comercial de la Compañia</label><input pInputText type="text"
-          [value]="item.commercialName"></div>
-      <div class="p-field p-col-12"> <label for="">Direccion</label><input pInputText type="text"
-          [value]="item.address"></div>
+          [value]="item.commercialName" [readonly]="readonly"> </div>
+      <div class="p-field p-col-12"> <label for="">Direccion</label><input pInputText type="text" [value]="item.address"
+          [readonly]="readonly"></div>
       <div class="p-field p-col-6">
-        <label for="">No. de Telefono</label><input pInputText type="text" [value]="item.telephone">
+        <label for="">No. de Telefono</label><input pInputText type="text" [value]="item.telephone"
+          [readonly]="readonly">
       </div>
       <div class="p-field p-col-6">
-        <label for="">No. de Telefono Secundario</label><input pInputText type="text" [value]="item.otherPhone">
+        <label for="">No. de Telefono Secundario</label><input pInputText type="text" [value]="item.otherPhone"
+          [readonly]="readonly">
       </div>
       <div class="p-col-3"></div>
       <div class="p-col-6">
