@@ -3,7 +3,7 @@ import { HttpResponse } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class HttpCacheServiceService {
+export class HttpCacheService {
   private requests: any = {};
 
   constructor() { }

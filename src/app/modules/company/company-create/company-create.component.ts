@@ -1,13 +1,14 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+
 import { Department } from '../../../models/department';
 import { Municipality } from '../../../models/municipality';
 import { DepartmentService } from '../../../services/department.service';
 import { MunicipalityService } from '../../../services/municipality.service';
-import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Company } from '../../../models/company';
 // import { FormControl } from '@angular/forms';
 import { CompanyService } from '../../../services/company.service';
-import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'company-create',
@@ -79,7 +80,6 @@ export class CompanyCreateComponent implements OnInit {
 
       if (municipality.title.toLowerCase().indexOf(query.toLowerCase()) == 0) {
         this.filteredMunicipality.push(municipality.longTitle);
-        // console.log(municipality);
       }
     }
   }
@@ -119,9 +119,7 @@ export class CompanyCreateComponent implements OnInit {
       let fileReader = new FileReader()
       fileReader.onload = () => {
         this.image = fileReader.result;
-        console.log(this.image.length);
         this.company.logo = this.image;
-        console.log(this.company.logo);
         this.company.logoContentType = files[0].type;
 
       }

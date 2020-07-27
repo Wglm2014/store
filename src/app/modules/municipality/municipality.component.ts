@@ -11,14 +11,19 @@ import { Department } from 'src/app/models/department';
   styleUrls: ['./municipality.component.css']
 })
 export class MunicipalityComponent implements OnInit, OnDestroy {
-  municipalities: Municipality[]; // list of municipalities already recorded in the DB
+  municipalities: Municipality[] = []; // list of municipalities already recorded in the DB
   municipality: Municipality;
   municipalityClone: { [s: string]: Municipality } = {};
 
   department: Department = new Department(); //variable to hold the department the municipalities belong
   hideCreate: boolean = true;
   hideParent: boolean = false;
+
+  cols: any[];
+  first = 0;
+  rows = 10;
   totalRecords: any;
+
   routeSub: any;
   editing: boolean = false;
   noMunicipalities: string; // string to display if there is no municipalities
@@ -34,6 +39,12 @@ export class MunicipalityComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+    this.cols = [
+      { field: 'id', header: 'No.' },
+      { field: 'title', header: 'Nombre Corto' },
+      { field: 'longTitle', header: 'Nombre Largo' }
+    ]
     this.routeSub = this.activeRoute.queryParams.subscribe(
       (params) => {
         this.department.id = params.id;

@@ -4,11 +4,12 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MenuComponent } from './modules/menu/menu.component';
 import { PrimengModule } from './primeng.module';
 import { CompanyService } from './services/company.service';
 import { MaterialModule } from './material.module';
+import { InterceptorService } from './services/interceptor.service'
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { MaterialModule } from './material.module';
     MaterialModule
   ],
   exports: [HttpClientModule, PrimengModule, FormsModule, MaterialModule],
-  providers: [CompanyService],
+  providers: [CompanyService, { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

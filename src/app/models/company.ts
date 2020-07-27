@@ -7,7 +7,13 @@ export class Company {
     public telephone?: string,
     public otherPhone?: string,
     public logo?: any,
-    public logoContentType?: string
+    public logoContentType?: string,
+    public contributorRegistryNumber?: string,
+    public contributorName?: string,
+    public nit?: string,
+    public activity?: string,
+    public socialReason?: string
+
   ) { }
 
   buildLogo(logoContentType: string, logo: any) {

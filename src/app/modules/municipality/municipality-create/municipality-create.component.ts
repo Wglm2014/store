@@ -50,6 +50,7 @@ export class MunicipalityCreateComponent implements OnInit, OnChanges {
     this.municipalityService.create(this.municipality).subscribe(
       (response: HttpResponse<Municipality>) => {
         // this.municipality = response.body;
+        console.log(response.body)
         this.newMunicipality.emit(response.body);
       },
       (error: HttpErrorResponse) => { console.log(error.message) }

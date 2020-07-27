@@ -10,9 +10,12 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 })
 export class CompanyComponent implements OnInit {
   companies: Company[];
+  companyClone: any;
+  address: string;
   department: string;
   municipality: string;
   hide: boolean = true;
+  editMode: boolean = false;
   noCompanies: number;
   readonly: boolean = true;
   constructor(private companyService: CompanyService) { }
@@ -22,11 +25,9 @@ export class CompanyComponent implements OnInit {
       (response: HttpResponse<Company[]>) => {
         this.companies = response.body;
         this.companies.forEach(company => {
-          console.log(company.logo.length);
-          console.log(company.logo);
-          // company.logo = new URL(`data:${company.logoContentType};base64,/9j/${company.logo}`);
+          // console.log(company.logo.length);
+          // console.log(company.logo);
         })
-        console.log(this.companies);
         this.noCompanies = this.companies.length;
       },
       (error: HttpErrorResponse) => {
@@ -46,13 +47,27 @@ export class CompanyComponent implements OnInit {
 
   }
 
-  edit(company: Company) {
+  edit(company: Company, i: any) {
     this.readonly = !this.readonly;
-    this.department = company.address.split(",")[1];
-    this.municipality = company.address.split(",")[2]
-    console.log(this.department);
+    this.editMode = !this.editMode;
+    this.companyClone = this.companies[i];
+    const departmentMunicipality = company.address.split(",");
+    this.address = departmentMunicipality.splice(0, departmentMunicipality.length - 2).join();
+    this.department = departmentMunicipality[departmentMunicipality.length - 1];
+    this.municipality = departmentMunicipality[departmentMunicipality.length - 2]
+
   }
   delete(company: Company) {
+
+  }
+
+  cancel(i: any) {
+    // this.companies[i] = this.companyClone;
+    // this.companyClone = [];
+    console.log(i);
+    this.editMode = !this.editMode
+  }
+  save(company: Company) {
 
   }
 }

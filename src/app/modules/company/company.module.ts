@@ -8,10 +8,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PrimengModule } from '../../primeng.module';
 import { MessageService } from 'primeng/api';
 import { CompanyService } from 'src/app/services/company.service';
+import { DepartmentMunicipalityComponent } from '../department-municipality/department-municipality.component';
 
 
 @NgModule({
-  declarations: [CompanyComponent, CompanyCreateComponent],
+  declarations: [CompanyComponent, CompanyCreateComponent, DepartmentMunicipalityComponent],
   imports: [
     CommonModule,
     CompanyRoutingModule,

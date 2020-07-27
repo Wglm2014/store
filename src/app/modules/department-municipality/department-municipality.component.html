@@ -1,0 +1,18 @@
+<div class="p-grid">
+  <div class="p-field p-col-6"> <label for="">Direccion</label><input pInputText type="text" [value]="address"></div>
+  <div class="p-col-3">
+    <label for="department">Departamento</label>
+    <p-autoComplete [(ngModel)]="department" [suggestions]="filteredDepartment"
+      (completeMethod)="filterDepartment($event)" [size]="30" [minLength]="1" name="department"
+      (change)="filterMunicipalities($event.target.value)" required forceSelection>
+    </p-autoComplete>
+
+  </div>
+  <div class="p-col-3">
+    <label for="municipality">Municipio</label>
+    <p-autoComplete [(ngModel)]="municipality" [suggestions]="filteredMunicipality"
+      (completeMethod)="filterMunicipality($event)" [size]="50" [minLength]="1" name="municipality" required
+      forceSelection>
+    </p-autoComplete>
+  </div>
+</div>

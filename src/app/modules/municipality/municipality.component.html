@@ -25,12 +25,16 @@
 
 
   <div class="p-grid">
-    <p-table [value]="municipalities" dataKey="id" editMode="row">
-      <ng-template pTemplate="header">
+    <p-table [value]="municipalities" dataKey="id" editMode="row" [columns]="cols" [paginator]="true" [rows]=10
+      [showCurrentPageReport]="true" current-PageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+      <ng-template pTemplate="header" let-columns>
         <tr>
-          <th class="p-col-1">No.</th>
-          <th class="p-col-3">Nombre Corto</th>
-          <th class="p-col-6">Nombre Largo</th>
+          <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+            {{col.header}}
+            <p-sortIcon [field]="col.field" ariaLabel="Acivate to sort"
+              ariaLabelDesc="Acivate to sort in descending order" ariaLavelAsc="Acivate to sort in ascending order">
+            </p-sortIcon>
+          </th>
           <th class="p-col-2">Options</th>
         </tr>
       </ng-template>
