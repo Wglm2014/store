@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, Input, OnChanges } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
@@ -15,31 +15,41 @@ import { CompanyService } from '../../../services/company.service';
   templateUrl: './company-create.component.html',
   styleUrls: ['./company-create.component.css']
 })
-export class CompanyCreateComponent implements OnInit {
-
+export class CompanyCreateComponent implements OnInit, OnChanges {
+  company: Company = new Company();
   departments: Department[];
   municipalities: Municipality[];
   reduceMunicipalities: Municipality[];
-  municipality: string;
-  department: string;
-  company: Company = new Company();
-  telephone: string;
-  otherPhone: string;
-  image: any;
-  logo: any;
   filteredDepartment: any[];
   filteredMunicipality: any[];
+  telephone: string;
+  otherPhone: string;
+  logo: any;
 
+  @Input("municipality") municipality: string;
+  @Input("department") department: string;
+  @Input("address") address: string;
+  @Input("companyEdit") companyEdit: Company;
+
+  @Input("imageEdit") image: any;
+
+
+  // to present errors in validations en clear the form when passes
   @ViewChild("createForm") form: any;
 
-
+  // to emit the new created company to the parent module and push to array of companies
   @Output() createdCompany = new EventEmitter<Company>();
 
+  //emit a boolean to indicate when the company has been created, hides the form
   @Output() addCompany = new EventEmitter<boolean>();
-
   toggle() {
     this.addCompany.emit(true);
   }
+
+  // emits the result of an updated company or emits null if the edition was cancel
+  @Output() editResult = new EventEmitter<any>();
+
+
   constructor(private departmentService: DepartmentService,
     private municipalityService: MunicipalityService,
     private companyService: CompanyService,
@@ -58,8 +68,15 @@ export class CompanyCreateComponent implements OnInit {
       (response: HttpResponse<Municipality[]>) => { this.municipalities = response.body },
       (error: HttpErrorResponse) => { console.log(error) }
     );
-  }
 
+
+
+  }
+  ngOnChanges(): void {
+    if (this.companyEdit) {
+      this.company = this.companyEdit;
+    }
+  }
   filterDepartment(event) {
     let query = event.query;
     this.filteredDepartment = [];
@@ -90,24 +107,43 @@ export class CompanyCreateComponent implements OnInit {
   }
 
   save() {
-    this.company.address = `${this.company.address}, ${this.municipality}, ${this.department}`;
-    this.companyService.create(this.company).subscribe(
-      (response: HttpResponse<Company>) => {
-
-        this.createdCompany.emit(response.body);
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error);
-      }
-    );
+    this.company.address = `${this.address}, ${this.municipality}, ${this.department}`;
+    if (this.companyEdit) {
+      this.companyService.update(this.company).subscribe(
+        (response: HttpResponse<Company>) => {
+          console.log(response.body);
+          this.editResult.emit(response.body);
+          this.addCompany.emit(true);
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error);
+          this.editResult.emit(null);
+        }
+      )
+    } else {
+      this.companyService.create(this.company).subscribe(
+        (response: HttpResponse<Company>) => {
+          this.createdCompany.emit(response.body);
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error);
+        }
+      );
+    }
     if (this.form.valid) {
       this.form.reset();
     }
-  }
-  edit() {
 
   }
-  delete() { }
+  cancel() {
+    this.company = null;
+    this.companyEdit = this.company;
+    this.address = "";
+    this.image = "";
+    this.municipality = "";
+    this.department = "";
+    this.editResult.emit(null);
+  }
 
 
   loadImage(event) {

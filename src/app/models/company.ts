@@ -16,9 +16,7 @@ export class Company {
 
   ) { }
 
-  buildLogo(logoContentType: string, logo: any) {
-    return `data:${logoContentType};base64,${logo}`;
-  }
+
 }
 
 

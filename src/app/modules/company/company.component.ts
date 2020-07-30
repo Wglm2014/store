@@ -9,25 +9,23 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./company.component.css']
 })
 export class CompanyComponent implements OnInit {
-  companies: Company[];
-  companyClone: any;
-  address: string;
-  department: string;
-  municipality: string;
-  hide: boolean = true;
-  editMode: boolean = false;
-  noCompanies: number;
-  readonly: boolean = true;
+  companies: Company[]; //list of companies store in the DB
+  companyClone: Company;
+  editedCompany: any; //when a company is to be edited the company is assign
+  address: string; // temporary holds the address string with no department or municipality when company is being edited
+  department: string; // temporary holds the department when company is being edited
+  municipality: string; // temporary holds the municipality when company is being edited
+  image: any; //temporary holds the image when company is being edited
+  hide: boolean = true; //hides the create-edit form
+  editedCompanyIndex: any; //index of the company that is being edited
+  noCompanies: number; //total companies in the list
+
   constructor(private companyService: CompanyService) { }
 
   ngOnInit(): void {
     this.companyService.findAll(null).subscribe(
       (response: HttpResponse<Company[]>) => {
         this.companies = response.body;
-        this.companies.forEach(company => {
-          // console.log(company.logo.length);
-          // console.log(company.logo);
-        })
         this.noCompanies = this.companies.length;
       },
       (error: HttpErrorResponse) => {
@@ -42,32 +40,45 @@ export class CompanyComponent implements OnInit {
     this.hide = !this.hide;
   }
 
-
+  //push a new created company to the array
   newCompany(company: Company) {
-
+    this.companies.push(company);
   }
 
   edit(company: Company, i: any) {
-    this.readonly = !this.readonly;
-    this.editMode = !this.editMode;
+    this.toggle();
+    this.editedCompanyIndex = i;
     this.companyClone = this.companies[i];
     const departmentMunicipality = company.address.split(",");
     this.address = departmentMunicipality.splice(0, departmentMunicipality.length - 2).join();
-    this.department = departmentMunicipality[departmentMunicipality.length - 1];
-    this.municipality = departmentMunicipality[departmentMunicipality.length - 2]
-
+    console.log(this.address);
+    this.department = departmentMunicipality[departmentMunicipality.length - 1].trim();
+    this.municipality = departmentMunicipality[departmentMunicipality.length - 2].trim();
+    this.image = company.logo;
+    this.editedCompany = company;
   }
+
   delete(company: Company) {
 
   }
 
-  cancel(i: any) {
-    // this.companies[i] = this.companyClone;
-    // this.companyClone = [];
-    console.log(i);
-    this.editMode = !this.editMode
+  handleEdit(editedCompanyResponse: any) {
+    console.log(this.companyClone);
+    if (editedCompanyResponse) {
+      this.companies[this.editedCompanyIndex] = editedCompanyResponse;
+    } else {
+      this.companyClone.address = `${this.address}, ${this.department}, ${this.municipality}`;
+      this.companies[this.editedCompanyIndex] = this.companyClone;
+      console.log("canceling");
+      this.editedCompany = "";
+      this.editedCompanyIndex = null;
+      this.address = "";
+      this.department = "";
+      this.municipality = "";
+      this.image = "";
+    }
+    this.toggle();
   }
-  save(company: Company) {
 
-  }
+
 }

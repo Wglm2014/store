@@ -9,23 +9,17 @@
 
       <div class="ui-fluid p-formgrid p-grid">
         <div class="p-field p-col-12"> <label for="">Nombre Comercial de la Compañia</label><input pInputText
-            type="text" [value]="item.commercialName" [readonly]="readonly"> </div>
+            type="text" [value]="item.commercialName" readonly> </div>
 
-        <div *ngIf="!editMode" class="p-field p-col-12"> <label for="">Direccion</label><input pInputText type="text"
-            [value]="item.address" [readonly]="readonly"></div>
+        <div class="p-field p-col-12"> <label for="">Direccion</label><input pInputText type="text"
+            [value]="item.address" readonly></div>
 
-        <div *ngIf="editMode" class="p-col-12">
-          <department-municipality [address]="address" [department]="department" [municipality]="municipality">
-          </department-municipality>
-
-        </div>
         <div class="p-field p-col-6">
-          <label for="">No. de Telefono</label><input pInputText type="text" [value]="item.telephone"
-            [readonly]="readonly">
+          <label for="">No. de Telefono</label><input pInputText type="text" [value]="item.telephone" readonly>
         </div>
         <div class="p-field p-col-6">
           <label for="">No. de Telefono Secundario</label><input pInputText type="text" [value]="item.otherPhone"
-            [readonly]="readonly">
+            readonly>
         </div>
         <div class="p-col-3"></div>
         <div class="p-col-6">
@@ -33,29 +27,25 @@
         </div>
         <div class="p-col-3"></div>
 
-        <div class="p-col-6 mt-5" *ngIf="!editMode">
+        <div class="p-col-6 mt-5">
           <button pButton class="ui-button-info" type="button" (click)="edit(item,i)">
             <i class="pi pi-pencil"></i>Editar</button>
         </div>
-        <div class="p-col-6 mt-5" *ngIf="!editMode">
+        <div class="p-col-6 mt-5">
           <button pButton class="ui-button-danger" type="button" (click)="delete(item)">
             <i class="pi pi-trash"></i>Eliminar</button>
         </div>
-        <div class="p-col-6 mt-5" *ngIf="editMode">
-          <button pButton class="ui-button-success" type="button" (click)="save(item)">
-            <i class="pi pi-pencil"></i>Guardar</button>
-        </div>
-        <div class="p-col-6 mt-5" *ngIf="editMode">
-          <button pButton class="ui-button-info" type="button" (click)="cancel(i)">
-            <i class="pi pi-times"></i>Cancelar</button>
-        </div>
+
       </div>
 
     </p-tabPanel>
 
   </p-tabView>
 
-  <company-create [hidden]="hide" (addCompany)="toggle()" (createdCompany)="newCompany($event)"></company-create>
+  <company-create [hidden]="hide" (createdCompany)="newCompany($event)" (addCompany)="toggle()"
+    [companyEdit]="editedCompany" [imageEdit]="image" [address]="address" [department]="department"
+    [municipality]="municipality" (editResult)="handleEdit($event)">
+  </company-create>
 
   <p-card *ngIf="noCompanies===0 && hide">
     <p-header class="bg-primary">

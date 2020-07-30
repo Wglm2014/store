@@ -1,107 +1,118 @@
 <form class="ui-fluid p-formgrid" name="createForm" (ngSubmit)="save()" #createForm="ngForm">
+  <p-card>
+    <p-header>
+      <h2>Agregue o Edite los datos de la Compañia</h2>
+    </p-header>
+    <div class="p-grid ui-card-content text-form">
+      <div class="p-col-12 p-md-12 p-lg-8">
+        <div class="p-grid">
+          <!-- large texts -->
+          <div class="p-col-12">
+            <input pInputText class="p-col-6" placeholder="Nombre de la Compañia" name="title"
+              [(ngModel)]="company.title" #title="ngModel" required>
+            <p *ngIf="title.errors && (title.dirty||title.touched)" class="text-danger">Por favor ingrese el nombre
+              legal
+              de
+              la Compañia</p>
+          </div>
+          <div class="p-col-12">
+            <input pInputText placeholder="Nombre Comercial" name="commercialName" [(ngModel)]="company.commercialName"
+              #commercialName="ngModel" required>
+            <p *ngIf="commercialName.errors && (title.dirty||title.touched)" class="text-danger">Por favor ingrese el
+              nombre
+              comercial de la Compañia</p>
+          </div>
+          <div class="p-col-12">
+            <input pInputText placeholder="Direccion" name="address" [(ngModel)]="address" required>
+          </div>
+          <!-- short texts -->
 
-  <div class="p-grid">
-    <div class="p-col-12">
-      <input pInputText class="p-col-6" placeholder="Nombre de la Compañia" name="title" [(ngModel)]="company.title"
-        #title="ngModel" required>
-      <p *ngIf="title.errors && (title.dirty||title.touched)" class="text-danger">Por favor ingrese el nombre legal
-        de
-        la Compañia</p>
-    </div>
-    <div class="p-col-12">
-      <input pInputText class="p-col-6" placeholder="Nombre Comercial" name="commercialName"
-        [(ngModel)]="company.commercialName" #commercialName="ngModel" required>
-      <p *ngIf="commercialName.errors && (title.dirty||title.touched)" class="text-danger">Por favor ingrese el
-        nombre
-        comercial de la Compañia</p>
-    </div>
-    <div class="p-col-12">
-      <input pInputText placeholder="Direccion" name="address" [(ngModel)]="company.address" #address="ngModel"
-        required>
-      <p *ngIf="address.errors && (address.dirty||address.touched)" class="text-danger">Por favor ingrese la
-        direccion
-      </p>
-    </div>
-    <div class="p-col-6">
-      <p-autoComplete placeholder="Departamento" [(ngModel)]="department" [suggestions]="filteredDepartment"
-        (completeMethod)="filterDepartment($event)" [size]="30" [minLength]="1" name="department"
-        (change)="filterMunicipalities($event.target.value)" required forceSelection>
-      </p-autoComplete>
-    </div>
-    <div class="p-col-6">
-      <p-autoComplete placeholder="Municipio" [(ngModel)]="municipality" [suggestions]="filteredMunicipality"
-        (completeMethod)="filterMunicipality($event)" [size]="50" [minLength]="1" name="municipality" required
-        forceSelection>
-      </p-autoComplete>
-    </div>
-  </div>
-  <div class="p-grid">
+          <div class="p-col-6 p-md-6 p-lg-6">
+            <p-autoComplete placeholder="Departamento" [(ngModel)]="department" [suggestions]="filteredDepartment"
+              (completeMethod)="filterDepartment($event)" [size]="30" [minLength]="1" name="department"
+              (change)="filterMunicipalities($event.target.value)" required forceSelection>
+            </p-autoComplete>
+          </div>
+          <div class="p-col-6 p-md-6 p-lg-6">
+            <p-autoComplete placeholder="Municipio" [(ngModel)]="municipality" [suggestions]="filteredMunicipality"
+              (completeMethod)="filterMunicipality($event)" [size]="50" [minLength]="1" name="municipality" required
+              forceSelection>
+            </p-autoComplete>
+          </div>
+          <div class="p-lg-6 p-md-6 p-col-6">
+            <p-inputMask mask="9999-9999" name="telephone" [(ngModel)]="company.telephone" placeholder="tel. 9999-9999"
+              required #telephone="ngModel">
+            </p-inputMask>
+            <p *ngIf="telephone.errors && (telephone.dirty||telephone.touched)" class="text-danger">Por favor ingrese
+              el
+              numero de
+              telefono</p>
 
-    <div class="p-col-6 p-md-12">
-
-      <div class="p-grid">
-        <div class="p-lg-6 p-md-6 p-col-12">
-          <p-inputMask mask="9999-9999" name="telephone" [(ngModel)]="company.telephone" placeholder="tel. 9999-9999"
-            required #telephone="ngModel">
-          </p-inputMask>
-          <p *ngIf="telephone.errors && (telephone.dirty||telephone.touched)" class="text-danger">Por favor ingrese el
-            numero de
-            telefono</p>
-
-        </div>
-        <div class="p-lg-6 p-md-6 p-col-12">
-          <p-inputMask mask="9999-9999" name="otherPhone" [(ngModel)]="company.otherPhone" placeholder="tel. 9999-9999">
-          </p-inputMask>
-        </div>
-        <div class="p-lg-6 p-md-6 p-col-12">
-          <p-inputMask mask="999999-9" name="contributorRegistryNumber" [(ngModel)]="company.contributorRegistryNumber"
-            placeholder="No. IVA 999999-1" required #contributorRegistryNumber="ngModel" required>
-          </p-inputMask>
-          <p *ngIf="contributorRegistryNumber.errors && (contributorRegistryNumber.dirty||contributorRegistryNumber.touched)"
-            class="text-danger">Por favor ingrese el numero de
-            contribuyente</p>
-        </div>
-        <div class="p-lg-6 p-md-6 p-col-12">
-          <p-inputMask mask="9999-999999-999-9" name="nit" [(ngModel)]="company.nit" placeholder="Nit 9999-999999-999-9"
-            #nit="ngModel">
-          </p-inputMask>
-          <p *ngIf="nit.errors && (nit.dirty||nit.touched)" class="text-danger">Por favor ingrese el numero de
-            NIT/p>
+          </div>
+          <div class="p-lg-6 p-md-6 p-col-6">
+            <p-inputMask mask="9999-9999" name="otherPhone" [(ngModel)]="company.otherPhone"
+              placeholder="tel. 9999-9999">
+            </p-inputMask>
+          </div>
+          <div class="p-lg-6 p-md-6 p-col-6">
+            <p-inputMask mask="999999-9" name="contributorRegistryNumber"
+              [(ngModel)]="company.contributorRegistryNumber" placeholder="No. IVA 999999-1" required
+              #contributorRegistryNumber="ngModel" required>
+            </p-inputMask>
+            <p *ngIf="contributorRegistryNumber.errors && (contributorRegistryNumber.dirty||contributorRegistryNumber.touched)"
+              class="text-danger">Por favor ingrese el numero de
+              contribuyente</p>
+          </div>
+          <div class="p-lg-6 p-md-6 p-col-6">
+            <p-inputMask mask="9999-999999-999-9" name="nit" [(ngModel)]="company.nit"
+              placeholder="Nit 9999-999999-999-9" #nit="ngModel">
+            </p-inputMask>
+            <p *ngIf="nit.errors && (nit.dirty||nit.touched)" class="text-danger">Por favor ingrese el numero de
+              NIT/p>
+          </div>
+          <!-- last info -->
+          <div class="p-col-12">
+            <input pInputText placeholder="Nombre de Contribuyente" name="contributorName"
+              [(ngModel)]="company.contributorName" #contributorName="ngModel" required>
+            <p *ngIf="contributorName.errors && (contributorName.dirty||contributorName.touched)" class="text-danger">
+              Por
+              favor ingrese el Nombre de Contribuyente</p>
+          </div>
+          <div class="p-col-12">
+            <input pInputText placeholder="Actividad de la Compañia" name="activity" [(ngModel)]="company.activity"
+              #activity="ngModel">
+          </div>
+          <div class="p-col-12">
+            <input pInputText placeholder="Razon Social" name="socialReason" [(ngModel)]="company.socialReason"
+              #activity="ngModel">
+          </div>
         </div>
       </div>
-    </div>
-    <div class="p-col-6 p-md-12">
-      <div class="p-grid">
-        <div class="p-col-12">
-          <span>
-            <input pButton class="upload-input" type="file" accept="image/png, image/jpeg, image/svg" [(ngModel)]="logo"
-              name="logo" (change)="loadImage($event)" id="my-image">
+      <!-- image -->
+      <div class="p-col-12 p-md-12 p-lg-4">
+        <p-card>
+          <p-header>
+            <input pButton id="upload-input" type="file" accept="image/png, image/jpeg, image/svg" [(ngModel)]="logo"
+              name="logo" (change)="loadImage($event)">
+          </p-header>
+          <div class="ui-card-content">
             <img id="company-image" [src]="image" alt="Sarai Sarai">
-          </span>
+          </div>
+        </p-card>
+      </div>
+    </div>
+
+    <p-footer>
+      <div class="p-grid">
+        <div class="p-col-6">
+          <button pButton class="ui-button-success" type="submit"><i class="pi pi-save"></i> Guardar</button>
+        </div>
+        <div class="p-col-6">
+          <button pButton class="ui-button-primary" type="button" (click)="cancel()"><i class="pi pi-times"></i>
+            Cancelar</button>
         </div>
       </div>
+    </p-footer>
+  </p-card>
 
-    </div>
-  </div>
-  <div class="p-grid">
-
-    <div class="p-col-12">
-      <input pInputText placeholder="Nombre de Contribuyente" name="address" [(ngModel)]="company.contributorName"
-        #contributorName="ngModel" required>
-      <p *ngIf="contributorName.errors && (contributorName.dirty||contributorName.touched)" class="text-danger">Por
-        favor ingrese el Nombre de Contribuyente</p>
-    </div>
-    <div class="p-col-12">
-      <input pInputText placeholder="Actividad de la Compañia" name="activity" [(ngModel)]="company.activity"
-        #activity="ngModel">
-    </div>
-    <div class="p-col-12">
-      <input pInputText placeholder="Razon Social" name="socialReason" [(ngModel)]="company.socialReason"
-        #activity="ngModel">
-    </div>
-    <div class="p-col-12">
-      <button pButton class="ui-button-success" type="submit"><i class="pi pi-save"></i> Guardar</button>
-    </div>
-
-  </div>
 </form>

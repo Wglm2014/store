@@ -7,30 +7,32 @@
 }
 
 #company-image {
-  width: 100%;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  min-width: 30vw;
-  min-height: 30vw;
+  width: auto;
+  height: 40vh;
+  max-width: 40vw;
+  max-height: 40vw;
+  min-width: 20vw;
+  min-height: 20vw;
   border-width: 2px;
   border-color: rgb(15, 128, 233);
   background-color: rgb(215, 232, 247);
   display: block;
+  margin-right: auto;
+  margin-left: auto;
   /* margin: auto; */
 
 }
 
 
-.upload-input {
+#upload-input {
   color: rgb(15, 128, 233);
 }
 
-.upload-input::-webkit-file-upload-button {
+#upload-input::-webkit-file-upload-button {
   visibility: hidden;
 }
 
-.upload-input::before {
+#upload-input::before {
   content: 'Elija imagen para su logo';
   color: black;
   background-color: inherit;
@@ -41,17 +43,21 @@
   font-weight: bolder;
   font-size: 2vw;
   text-align: center;
-  width: 100%;
+  align-content: space-around;
+  width: 80%;
   height: 100%;
-  padding-left: 6vw;
-  padding-right: auto;
   font-size-adjust: inherit;
 }
 
-.upload-input:hover::before {
+#upload-input:hover::before {
   border-color: black;
 }
 
 /* .upload-input:active::before {
   background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 } */
+
+
+.text-center {
+  align-content: space-between;
+}

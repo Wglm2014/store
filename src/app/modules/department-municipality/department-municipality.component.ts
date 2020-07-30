@@ -1,5 +1,5 @@
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Department } from '../../models/department';
 import { Municipality } from '../../models/municipality';
 import { DepartmentService } from '../../services/department.service';
@@ -18,6 +18,11 @@ export class DepartmentMunicipalityComponent implements OnInit {
   @Input("municipality") municipality: string;
   @Input("department") department: string;
   @Input("address") address: string;
+
+  @Output() editedAddress = new EventEmitter<string>();
+  @Output() editedDepartment = new EventEmitter<string>();
+  @Output() editedMunicipality = new EventEmitter<string>();
+
   reduceMunicipalities: Municipality[];
 
   constructor(private departmentService: DepartmentService,
@@ -63,5 +68,16 @@ export class DepartmentMunicipalityComponent implements OnInit {
         // console.log(municipality);
       }
     }
+  }
+
+  onEnterAddress() {
+    this.editedAddress.emit(this.address);
+  }
+
+  onEnterDepartment() {
+    this.editedDepartment.emit(this.department);
+  }
+  onEnterMunicipality() {
+    this.editedAddress.emit(this.municipality);
   }
 }
