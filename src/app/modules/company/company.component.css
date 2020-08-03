@@ -8,16 +8,18 @@
 
 #company-image {
   width: auto;
-  height: 40vw;
-  max-width: auto;
+  height: 30vw;
+  max-width: 100%;
   max-height: 40vw;
-  min-width: 30vw;
-  min-height: 30vw;
+  min-width: 20vw;
+  min-height: 20vw;
   border-width: 2px;
   border-color: rgb(15, 128, 233);
   background-color: rgb(215, 232, 247);
   display: block;
-  /* margin: auto; */
+  text-align: center;
+  align-content: center;
+  margin: auto;
 
 }
 

@@ -26,6 +26,7 @@ export class CompanyComponent implements OnInit {
     this.companyService.findAll(null).subscribe(
       (response: HttpResponse<Company[]>) => {
         this.companies = response.body;
+        console.log(response.body);
         this.noCompanies = this.companies.length;
       },
       (error: HttpErrorResponse) => {
@@ -49,6 +50,7 @@ export class CompanyComponent implements OnInit {
     this.toggle();
     this.editedCompanyIndex = i;
     this.companyClone = this.companies[i];
+    console.log(this.companyClone);
     const departmentMunicipality = company.address.split(",");
     this.address = departmentMunicipality.splice(0, departmentMunicipality.length - 2).join();
     console.log(this.address);
@@ -58,16 +60,25 @@ export class CompanyComponent implements OnInit {
     this.editedCompany = company;
   }
 
-  delete(company: Company) {
+  delete(id: number) {
+    this.companyService.delete(id).subscribe(
+      (res: any) => {
 
+        this.companies = this.companies.filter(remainingCompanies => {
+          return remainingCompanies.id !== res.body.id;
+        })
+      },
+      ((error: HttpErrorResponse) => {
+        console.log(error);
+      }));
   }
 
   handleEdit(editedCompanyResponse: any) {
+    console.log("I am back");
     console.log(this.companyClone);
     if (editedCompanyResponse) {
       this.companies[this.editedCompanyIndex] = editedCompanyResponse;
     } else {
-      this.companyClone.address = `${this.address}, ${this.department}, ${this.municipality}`;
       this.companies[this.editedCompanyIndex] = this.companyClone;
       console.log("canceling");
       this.editedCompany = "";

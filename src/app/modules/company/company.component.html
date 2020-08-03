@@ -8,41 +8,69 @@
     <p-tabPanel [header]="item.title" *ngFor="let item of companies; let i = index" [selected]="i ==0">
 
       <div class="ui-fluid p-formgrid p-grid">
-        <div class="p-field p-col-12"> <label for="">Nombre Comercial de la Compañia</label><input pInputText
-            type="text" [value]="item.commercialName" readonly> </div>
 
-        <div class="p-field p-col-12"> <label for="">Direccion</label><input pInputText type="text"
-            [value]="item.address" readonly></div>
+        <div class="p-field p-col-12 p-md-12 p-lg-8 ">
+          <div class="p-grid">
+            <div class="p-field p-col-12"> <label for="">Nombre Comercial de la Compañia</label><input pInputText
+                type="text" [value]="item.commercialName" readonly> </div>
 
-        <div class="p-field p-col-6">
-          <label for="">No. de Telefono</label><input pInputText type="text" [value]="item.telephone" readonly>
-        </div>
-        <div class="p-field p-col-6">
-          <label for="">No. de Telefono Secundario</label><input pInputText type="text" [value]="item.otherPhone"
-            readonly>
-        </div>
-        <div class="p-col-3"></div>
-        <div class="p-col-6">
-          <img id="company-image" [src]="item.logo" alt="sarai sarai">
-        </div>
-        <div class="p-col-3"></div>
+            <div class="p-field p-col-12"> <label for="">Direccion</label><input pInputText type="text"
+                [value]="item.address" readonly>
+            </div>
 
+            <div class="p-field p-col-6">
+              <label for="">No. de Telefono</label><input pInputText type="text" [value]="item.telephone" readonly>
+            </div>
+            <div class="p-field p-col-6">
+              <label for="">No. de Telefono Secundario</label><input pInputText type="text" [value]="item.otherPhone"
+                readonly>
+            </div>
+            <div class="p-field p-col-6">
+              <label for="">NIT</label><input pInputText type="text" [value]="item.nit" readonly>
+            </div>
+            <div class="p-field p-col-6">
+              <label for="">Numero de Contribuyente</label><input pInputText type="text"
+                [value]="item.contributorRegistryNumber" readonly>
+            </div>
+
+
+            <div class="p-field p-col-12"> <label for="">Nombre de Contribuyente</label><input pInputText type="text"
+                [value]="item.contributorName" readonly></div>
+
+            <div class="p-field p-col-12"> <label for="">Actividad de la Compañia</label><input pInputText type="text"
+                [value]="item.activity" readonly></div>
+
+            <div class="p-field p-col-12"> <label for="">Razon Social</label><input pInputText type="text"
+                [value]="item.socialReason" readonly></div>
+
+          </div>
+        </div>
+        <div class="p-field p-col-12 p-md-12 p-lg-4">
+          <div class="p-grid">
+            <div class="p-field p-col-12 text-center">
+              <label for="company-image">Logo de la Compañia</label>
+              <img name="company-image" id="company-image" [src]="item.logo" alt="sarai sarai">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui-fluid p-formgrid p-grid">
         <div class="p-col-6 mt-5">
           <button pButton class="ui-button-info" type="button" (click)="edit(item,i)">
             <i class="pi pi-pencil"></i>Editar</button>
         </div>
         <div class="p-col-6 mt-5">
-          <button pButton class="ui-button-danger" type="button" (click)="delete(item)">
+          <button pButton class="ui-button-danger" type="button" (click)="delete(item.id)">
             <i class="pi pi-trash"></i>Eliminar</button>
         </div>
 
       </div>
-
     </p-tabPanel>
 
   </p-tabView>
 
-  <company-create [hidden]="hide" (createdCompany)="newCompany($event)" (addCompany)="toggle()"
+  <company-create *ngIf="!hide" (createdCompany)="newCompany($event)" (addCompany)="toggle()"
     [companyEdit]="editedCompany" [imageEdit]="image" [address]="address" [department]="department"
     [municipality]="municipality" (editResult)="handleEdit($event)">
   </company-create>

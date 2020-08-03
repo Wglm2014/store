@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, Input, OnChanges, OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
@@ -15,7 +15,7 @@ import { CompanyService } from '../../../services/company.service';
   templateUrl: './company-create.component.html',
   styleUrls: ['./company-create.component.css']
 })
-export class CompanyCreateComponent implements OnInit, OnChanges {
+export class CompanyCreateComponent implements OnInit, OnChanges, OnDestroy {
   company: Company = new Company();
   departments: Department[];
   municipalities: Municipality[];
@@ -58,6 +58,7 @@ export class CompanyCreateComponent implements OnInit, OnChanges {
 
   }
 
+
   ngOnInit(): void {
     this.departmentService.findAll().subscribe(
       (response: HttpResponse<Department[]>) => { this.departments = response.body },
@@ -76,6 +77,17 @@ export class CompanyCreateComponent implements OnInit, OnChanges {
     if (this.companyEdit) {
       this.company = this.companyEdit;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.form.reset();
+
+    this.company = null;
+    this.companyEdit = this.company;
+    this.address = "";
+    this.image = "";
+    this.municipality = "";
+    this.department = "";
   }
   filterDepartment(event) {
     let query = event.query;
@@ -143,6 +155,7 @@ export class CompanyCreateComponent implements OnInit, OnChanges {
     this.municipality = "";
     this.department = "";
     this.editResult.emit(null);
+    this.form.reset();
   }
 
 

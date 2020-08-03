@@ -4,7 +4,7 @@ import { BranchComponent } from './branch.component';
 import { BranchService } from 'src/app/services/branch.service';
 import { BranchRoutingModule } from './branch-routing.module';
 import { FormsModule } from '@angular/forms';
-import { MaterialModule } from 'src/app/material.module';
+import { PrimengModule } from '../../primeng.module';
 
 
 
@@ -14,7 +14,7 @@ import { MaterialModule } from 'src/app/material.module';
     CommonModule,
     BranchRoutingModule,
     FormsModule,
-    MaterialModule
+    PrimengModule
   ],
   providers: [BranchService]
 })

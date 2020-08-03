@@ -8,7 +8,7 @@ import { Branch } from '../models/branch';
   providedIn: 'root'
 })
 export class BranchService {
-  private resourceUrl = SERVER_API_URL;
+  private resourceUrl = SERVER_API_URL + "api/branch";
 
   constructor(private http: HttpClient) { }
 
