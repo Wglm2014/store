@@ -1,0 +1,45 @@
+<form class="ui-fluid p-formgrid" (ngSubmit)="save()" name="createForm" #createForm="ngForm">
+  <p-card>
+    <p-header>
+      <h2>Ingrese o Edite los datos de la Sucursal</h2>
+    </p-header>
+    <div class="p-grid ui-card-content">
+      <div class="p-field p-col-12">
+        <label for="title">Nombre de la Sucursal</label>
+        <input pInputText name="title" placeholder="ej. Sucursal Santa Ana Av. Principal" [(ngModel)]="branch.title"
+          #title="ngModel" required>
+        <p *ngIf="title.errors && (title.dirty || title.touched)" class="text-danger">Por favor Ingrese un nombre valido
+        </p>
+      </div>
+      <div class="p-field p-col-12">
+        <label for="titleAbbreviation">Nombre Abreviado</label>
+        <input pInputText name="titleAbbreviation" placeholder="ej. Sucursal Uno" [(ngModel)]="branch.titleAbbreviation"
+          #titleAbbreviation="ngModel" required>
+        <p *ngIf="titleAbbreviation.errors && (titleAbbreviation.dirty || titleAbbreviation.touched)"
+          class="text-danger">
+          Por favor ingrese un nombre abrebiado valido
+        </p>
+      </div>
+
+    </div>
+    <department-municipality></department-municipality>
+    <div class="p-grid ui-card-content">
+      <div class="p-field p-col-6">
+        <label for="telephone">Telefono</label>
+        <p-inputMask mask="9999-9999" name="telephone" [(ngModel)]="branch.telephone" placeholder="tel. 9999-9999"
+          required #telephone="ngModel">
+        </p-inputMask>
+        <p *ngIf="telephone.errors && (telephone.dirty||telephone.touched)" class="text-danger">Por favor ingrese
+          el
+          numero de
+          telefono</p>
+      </div>
+      <div class="p-field p-col-6">
+        <label for="telephone">Telefono</label>
+        <p-inputMask mask="9999-9999" name="otherPhone" [(ngModel)]="branch.otherPhone" placeholder="tel. 9999-9999">
+        </p-inputMask>
+      </div>
+    </div>
+
+  </p-card>
+</form>

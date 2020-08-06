@@ -1,44 +1,45 @@
 import { Component, OnInit } from '@angular/core';
 import { BranchService } from '../../services/branch.service';
-import { Company } from '../../models/company';
-import { Department } from '../../models/department';
-import { Municipality } from '../../models/municipality';
+
 import { Branch } from '../../models/branch';
 import { HttpResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-branch',
+  selector: 'branch',
   templateUrl: './branch.component.html',
   styleUrls: ['./branch.component.css']
 })
 export class BranchComponent implements OnInit {
-  companies: Company[];
-  departments: Department[];
-  municipalities: Municipality[];
-  Branches: Branch[];
 
+  branches: Branch[];
+  companyName: string;
+  address: string;
+  department: string;
+  municipality: string;
   hide: boolean = false;
-
-  noBranches: number = 0;
-
+  noBranches: number;
+  editedBranch: Branch;
   constructor(private branchService: BranchService) { }
 
   ngOnInit(): void {
     this.branchService.findAll().subscribe(
       (res: HttpResponse<Branch[]>) => {
-        console.log(res);
+        this.branches = res.body;
+        this.noBranches = this.branches.length;
+        console.log(this.branches);
       },
       (error) => {
+        this.noBranches = 0;
         console.log(error);
       }
     )
   }
 
   toggle() {
-
+    this.hide = !this.hide
   }
 
-  newBranch() {
+  newBranch(branch: Branch) {
 
   }
 
@@ -46,7 +47,7 @@ export class BranchComponent implements OnInit {
 
   }
 
-  handleEdit() {
+  handleEdit(branch: Branch) {
 
   }
 

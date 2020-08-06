@@ -8,12 +8,10 @@
         <div class="p-grid">
           <!-- large texts -->
           <div class="p-col-12">
-            <input pInputText class="p-col-6" placeholder="Nombre de la Compañia" name="title"
-              [(ngModel)]="company.title" #title="ngModel" required>
+            <input pInputText placeholder="Nombre de la Compañia" name="title" [(ngModel)]="company.title"
+              #title="ngModel" required>
             <p *ngIf="title.errors && (title.dirty||title.touched)" class="text-danger">Por favor ingrese el nombre
-              legal
-              de
-              la Compañia</p>
+              legal de la Compañia</p>
           </div>
           <div class="p-col-12">
             <input pInputText placeholder="Nombre Comercial" name="commercialName" [(ngModel)]="company.commercialName"

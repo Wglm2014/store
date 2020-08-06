@@ -8,8 +8,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MenuComponent } from './modules/menu/menu.component';
 import { PrimengModule } from './primeng.module';
 import { CompanyService } from './services/company.service';
-import { MaterialModule } from './material.module';
-import { InterceptorService } from './services/interceptor.service'
+import { InterceptorService } from './services/interceptor.service';
+
 
 @NgModule({
   declarations: [
@@ -22,9 +22,9 @@ import { InterceptorService } from './services/interceptor.service'
     AppRoutingModule,
     BrowserAnimationsModule,
     PrimengModule,
-    MaterialModule
   ],
-  exports: [HttpClientModule, PrimengModule, FormsModule, MaterialModule],
+  exports: [HttpClientModule, PrimengModule, FormsModule,
+  ],
   providers: [CompanyService, { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })

@@ -5,17 +5,19 @@ import { BranchService } from 'src/app/services/branch.service';
 import { BranchRoutingModule } from './branch-routing.module';
 import { FormsModule } from '@angular/forms';
 import { PrimengModule } from '../../primeng.module';
-
-
+import { BranchCreateComponent } from './branch-create/branch-create.component';
+import { DepartmentMunicipalityModule } from '../department-municipality/department-municipality.module';
 
 @NgModule({
-  declarations: [BranchComponent],
+  declarations: [BranchComponent, BranchCreateComponent],
   imports: [
     CommonModule,
     BranchRoutingModule,
     FormsModule,
-    PrimengModule
+    PrimengModule,
+    DepartmentMunicipalityModule
   ],
+  exports: [DepartmentMunicipalityModule],
   providers: [BranchService]
 })
 export class BranchModule { }

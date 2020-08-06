@@ -17,7 +17,7 @@ export class DepartmentMunicipalityComponent implements OnInit {
   filteredMunicipality: any[];
   @Input("municipality") municipality: string;
   @Input("department") department: string;
-  @Input("address") address: string;
+  @Input("address") address: string = "";
 
   @Output() editedAddress = new EventEmitter<string>();
   @Output() editedDepartment = new EventEmitter<string>();
@@ -30,7 +30,10 @@ export class DepartmentMunicipalityComponent implements OnInit {
 
   ngOnInit(): void {
     this.departmentService.findAll().subscribe(
-      (response: HttpResponse<Department[]>) => { this.departments = response.body },
+      (response: HttpResponse<Department[]>) => {
+        this.departments = response.body
+        console.log(this.department)
+      },
       (error: HttpErrorResponse) => { return error }
     );
 

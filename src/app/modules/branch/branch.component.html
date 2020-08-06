@@ -4,40 +4,30 @@
         icon="pi pi-plus-circle"></button>
       Sucursales</h1>
   </header>
-  <p-tabView *ngIf="noBranches !==0" [hidden]="!hide">
-    <p-tabPanel [header]="item.title" *ngFor="let item of Branches; let i = index" [selected]="i ==0">
+  <p-tabView *ngIf="noBranches >0" [hidden]="hide">
+    <p-tabPanel [header]="item.title" *ngFor="let item of branches; let i = index" [selected]="i ==0">
 
       <div class="ui-fluid p-formgrid p-grid">
 
-        <div class="p-field p-col-12 p-md-12 p-lg-8 ">
-          <div class="p-grid">
-            <div class="p-field p-col-12"> <label for="">Nombre Abreviado de la Sucursal</label><input pInputText
-                type="text" [value]="item.titleAbbeviation" readonly>
-            </div>
-
-            <div class="p-field p-col-12"> <label for="">Direccion</label><input pInputText type="text"
-                [value]="item.address" readonly>
-            </div>
-
-            <div class="p-field p-col-6">
-              <label for="">No. de Telefono</label><input pInputText type="text" [value]="item.telephone" readonly>
-            </div>
-            <div class="p-field p-col-6">
-              <label for="">No. de Telefono Secundario</label><input pInputText type="text" [value]="item.otherPhone"
-                readonly>
-            </div>
-            <div class="p-field p-col-6">
-              <label for="">Compañia</label><input pInputText type="text" [value]="item.companyId" readonly>
-            </div>
-
-
-          </div>
+        <div class="p-field p-col-12"> <label for="">Nombre Abreviado de la Sucursal</label><input pInputText
+            type="text" [value]="item.titleAbbreviation" readonly>
         </div>
 
-      </div>
+        <div class="p-field p-col-12"> <label for="">Direccion</label><input pInputText type="text"
+            [value]="item.address" readonly>
+        </div>
 
+        <div class="p-field p-col-6">
+          <label for="">No. de Telefono</label><input pInputText type="text" [value]="item.telephone" readonly>
+        </div>
+        <div class="p-field p-col-6">
+          <label for="">No. de Telefono Secundario</label><input pInputText type="text" [value]="item.otherPhone"
+            readonly>
+        </div>
+        <div class="p-field p-col-12">
+          <label for="">Nombre de la Compañia</label><input pInputText type="text" [value]="item.companyName" readonly>
+        </div>
 
-      <div class="ui-fluid p-formgrid p-grid">
         <div class="p-col-6 mt-5">
           <button pButton class="ui-button-info" type="button" (click)="edit()">
             <i class="pi pi-pencil"></i>Editar</button>
@@ -48,19 +38,20 @@
         </div>
 
       </div>
+
+
     </p-tabPanel>
 
   </p-tabView>
 
-  <!-- <branch-create *ngIf="!hide" (createdCompany)="newCompany($event)" (addCompany)="toggle()"
-    [companyEdit]="editedCompany" [imageEdit]="image" [address]="address" [department]="department"
-    [municipality]="municipality" (editResult)="handleEdit($event)">
-  </branch-create> -->
+  <branch-create *ngIf="!hide" (createdBranch)="newBranch($event)" (addBranch)="toggle()" [branchEdit]="editedBranch"
+    [address]="address" [department]="department" [municipality]="municipality" (editResult)="handleEdit($event)">
+  </branch-create>
 
-  <!-- <p-card *ngIf="noCompanies===0 && hide">
+  <p-card *ngIf="noBranches===0 && hide">
     <p-header class="bg-primary">
-      <h1>Todavia No existen Comañias creadas</h1>
+      <h1>Todavia No existen Sucursles creadas</h1>
     </p-header>
-    <h3>Por favor presione el boton <i class="pi pi-plus-circle"></i> para crear una nueva Compañia</h3>
-  </p-card> -->
+    <h3>Por favor presione el boton <i class="pi pi-plus-circle"></i> para crear una nueva Sucursal</h3>
+  </p-card>
 </section>

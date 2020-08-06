@@ -5,7 +5,7 @@ export class Branch {
     public address?: string,
     public telephone?: string,
     public otherPhone?: string,
-    public titleAbbeviation?: string,
+    public titleAbbreviation?: string,
     public companyId?: number
   ) { }
 }
