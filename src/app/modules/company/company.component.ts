@@ -50,12 +50,12 @@ export class CompanyComponent implements OnInit {
     this.toggle();
     this.editedCompanyIndex = i;
     this.companyClone = this.companies[i];
-    console.log(this.companyClone);
+    // console.log(this.companyClone);
     const departmentMunicipality = company.address.split(",");
     this.address = departmentMunicipality.splice(0, departmentMunicipality.length - 2).join();
     console.log(this.address);
-    this.department = departmentMunicipality[departmentMunicipality.length - 1].trim();
-    this.municipality = departmentMunicipality[departmentMunicipality.length - 2].trim();
+    this.department = departmentMunicipality[departmentMunicipality.length - 2].trim();
+    this.municipality = departmentMunicipality[departmentMunicipality.length - 1].trim();
     this.image = company.logo;
     this.editedCompany = company;
   }
@@ -68,9 +68,9 @@ export class CompanyComponent implements OnInit {
           return remainingCompanies.id !== res.body.id;
         })
       },
-      ((error: HttpErrorResponse) => {
+      (error: HttpErrorResponse) => {
         console.log(error);
-      }));
+      });
   }
 
   handleEdit(editedCompanyResponse: any) {

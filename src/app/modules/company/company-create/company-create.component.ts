@@ -69,9 +69,6 @@ export class CompanyCreateComponent implements OnInit, OnChanges, OnDestroy {
       (response: HttpResponse<Municipality[]>) => { this.municipalities = response.body },
       (error: HttpErrorResponse) => { console.log(error) }
     );
-
-
-
   }
   ngOnChanges(): void {
     if (this.companyEdit) {
@@ -80,14 +77,7 @@ export class CompanyCreateComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.form.reset();
-
-    this.company = null;
-    this.companyEdit = this.company;
-    this.address = "";
-    this.image = "";
-    this.municipality = "";
-    this.department = "";
+    this.clearData();
   }
   filterDepartment(event) {
     let query = event.query;
@@ -123,7 +113,7 @@ export class CompanyCreateComponent implements OnInit, OnChanges, OnDestroy {
     if (this.companyEdit) {
       this.companyService.update(this.company).subscribe(
         (response: HttpResponse<Company>) => {
-          console.log(response.body);
+          // console.log(response.body);
           this.editResult.emit(response.body);
           this.addCompany.emit(true);
         },
@@ -148,13 +138,17 @@ export class CompanyCreateComponent implements OnInit, OnChanges, OnDestroy {
 
   }
   cancel() {
+    this.clearData();
+    this.editResult.emit(null);
+  }
+
+  clearData() {
     this.company = null;
     this.companyEdit = this.company;
     this.address = "";
     this.image = "";
     this.municipality = "";
     this.department = "";
-    this.editResult.emit(null);
     this.form.reset();
   }
 

@@ -5,6 +5,10 @@
     </p-header>
     <div class="p-grid ui-card-content">
       <div class="p-field p-col-12">
+        <label for="companyId">Elija La Compañia para esta Sucursal</label>
+        <p-dropdown [options]="companies" [(ngModel)]="branch.companyId" name="companyId" required></p-dropdown>
+      </div>
+      <div class="p-field p-col-12">
         <label for="title">Nombre de la Sucursal</label>
         <input pInputText name="title" placeholder="ej. Sucursal Santa Ana Av. Principal" [(ngModel)]="branch.title"
           #title="ngModel" required>
@@ -22,7 +26,9 @@
       </div>
 
     </div>
-    <department-municipality></department-municipality>
+    <department-municipality [address]="address" [department]="department" [municipality]="municipality"
+      (editedAddress)="editedAddress($event)" (editedDepartment)="editedDepartment($event)"
+      (editedMunicipality)="editedMunicipality($event)"></department-municipality>
     <div class="p-grid ui-card-content">
       <div class="p-field p-col-6">
         <label for="telephone">Telefono</label>
@@ -38,6 +44,14 @@
         <label for="telephone">Telefono</label>
         <p-inputMask mask="9999-9999" name="otherPhone" [(ngModel)]="branch.otherPhone" placeholder="tel. 9999-9999">
         </p-inputMask>
+      </div>
+      <div class="p-col-6"><button pButton class="ui-button-success">
+          <i class="pi pi-save"></i> guardar
+        </button>
+      </div>
+      <div class="p-col-6"><button pButton class="ui-button-primary" (click)="cancel()">
+          <i class="pi pi-times"></i> cancelar
+        </button>
       </div>
     </div>
 

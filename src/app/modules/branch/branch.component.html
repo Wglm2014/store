@@ -4,7 +4,7 @@
         icon="pi pi-plus-circle"></button>
       Sucursales</h1>
   </header>
-  <p-tabView *ngIf="noBranches >0" [hidden]="hide">
+  <p-tabView *ngIf="noBranches>0" [hidden]="hide">
     <p-tabPanel [header]="item.title" *ngFor="let item of branches; let i = index" [selected]="i ==0">
 
       <div class="ui-fluid p-formgrid p-grid">
@@ -29,11 +29,11 @@
         </div>
 
         <div class="p-col-6 mt-5">
-          <button pButton class="ui-button-info" type="button" (click)="edit()">
+          <button pButton class="ui-button-info" type="button" (click)="edit(item, i)">
             <i class="pi pi-pencil"></i>Editar</button>
         </div>
         <div class="p-col-6 mt-5">
-          <button pButton class="ui-button-danger" type="button" (click)="delete()">
+          <button pButton class="ui-button-danger" type="button" (click)="delete(item.id)">
             <i class="pi pi-trash"></i>Eliminar</button>
         </div>
 
@@ -44,7 +44,7 @@
 
   </p-tabView>
 
-  <branch-create *ngIf="!hide" (createdBranch)="newBranch($event)" (addBranch)="toggle()" [branchEdit]="editedBranch"
+  <branch-create *ngIf="hide" (createdBranch)="newBranch($event)" (addBranch)="toggle()" [branchEdit]="editedBranch"
     [address]="address" [department]="department" [municipality]="municipality" (editResult)="handleEdit($event)">
   </branch-create>
 
